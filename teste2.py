@@ -6,7 +6,7 @@ st.title('Teste ECMI 2')
 
 st.write('Tabela')
 
-dataftrame = pd.DataFrame({
+dataframe = pd.DataFrame({
     'Nome': ['Josir', 'Bruno', 'Bruna', 'Anna'],
     'Salário': [10, 20, 30, 40]
 })
