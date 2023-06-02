@@ -51,8 +51,8 @@ def obter_informacoes_commodity(commodity):
     # Exibir o dataframe
     st.write(df)
 
-# Obter a commodity desejada do usuário
-commodity = input("Digite o nome da commodity: ").lower().replace(' ', '-')
-
-# Chamar a função com a commodity fornecida pelo usuário
-obter_informacoes_commodity(commodity)
+# Criar a interface do Streamlit
+st.title("Obter Informações de Commodity")
+commodity = st.text_input("Digite o nome da commodity")
+if st.button("Obter Informações"):
+    obter_informacoes_commodity(commodity.lower().replace(' ', '-'))
