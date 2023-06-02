@@ -1,9 +1,6 @@
 import streamlit as st
 import requests
 from bs4 import BeautifulSoup
-import re
-import matplotlib.pyplot as plt
-import pandas as pd
 
 def obter_informacoes_commodity(commodity):
     url = f"https://www.noticiasagricolas.com.br/cotacoes/{commodity}"
@@ -29,30 +26,15 @@ def obter_informacoes_commodity(commodity):
 
     # Realizar o scraping dos dados da página histórico
     dados_td = soup_hist.find_all('td')
+    historico_dados = []
+    for i, td in enumerate(dados_td):
+        if i < 30:
+            historico_dados.append(td.text)
+        else:
+            break
 
-    # Armazenar os valores dos dados em uma lista, ignorando os resultados indesejados
-    valores = []
-    for td in dados_td:
-        texto = td.text.strip()
-        if "/" not in texto and "%" not in texto:
-            match = re.search(r'\d+\.\d+', texto)
-            if match:
-                valor = float(match.group())
-                valores.append(valor)
-
-    # Criar um DataFrame com os valores e a data como índice
-    df = pd.DataFrame(valores, columns=["Preço"])
-    df.index = pd.date_range(start='01/01/2023', periods=len(df), freq='D')
-
-    # Plotar o gráfico de variação do preço para os últimos 30 dias
-    st.subheader("Variação do Preço (Últimos 30 dias)")
-    plt.figure(figsize=(10, 6))
-    plt.plot(df.index[-30:], df['Preço'][-30:], marker='o', linestyle='-')
-    plt.xlabel('Data')
-    plt.ylabel('Preço')
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-    st.pyplot()
+    st.subheader("Dados do histórico (Últimos 30 dias)")
+    st.write(historico_dados)
 
 # Título da página
 st.title("Obter Informações de Commodity")
