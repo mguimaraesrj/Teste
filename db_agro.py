@@ -2,11 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import streamlit as st
-import unicodedata
-
-def normalize_text(text):
-    text = unicodedata.normalize('NFD', text).encode('ascii', 'ignore').decode('utf-8')
-    return text.lower()
 
 def obter_informacoes_commodity(commodity):
     url = f"https://www.noticiasagricolas.com.br/cotacoes/{commodity}"
@@ -35,30 +30,23 @@ def obter_informacoes_commodity(commodity):
     resultados = novo_soup.find_all('td')
 
     # Organizar os resultados em listas separadas para cada coluna
-    tipo_resultado = 0
     datas = []
     precos = []
 
     for resultado in resultados:
-        texto = resultado.text.strip()
-
-        if tipo_resultado == 0:
-            datas.append(normalize_text(texto))
-        elif tipo_resultado == 1:
-            precos.append(texto)
-
-        tipo_resultado += 1
-        if tipo_resultado == 3:
-            tipo_resultado = 0
-
         if len(datas) >= 11:
             break
 
-    # Verificar se as listas têm o mesmo tamanho
-    tamanho = min(len(datas), len(precos))
+        texto = resultado.text.strip()
+
+        if len(texto) > 0:
+            if len(datas) % 3 == 0:
+                datas.append(texto)
+            elif len(datas) % 3 == 1:
+                precos.append(texto)
 
     # Criar um dataframe com as colunas "Datas" e "Preços"
-    df = pd.DataFrame({"Datas": datas[:tamanho], "Preços": precos[:tamanho]})
+    df = pd.DataFrame({"Datas": datas, "Preços": precos})
 
     # Exibir o dataframe
     st.write(df)
