@@ -32,21 +32,21 @@ def obter_informacoes_commodity(commodity):
     # Organizar os resultados em listas separadas para cada coluna
     datas = []
     precos = []
+    variacoes = []
 
-    for resultado in resultados:
+    for i, resultado in enumerate(resultados):
         if len(datas) >= 11:
             break
 
         texto = resultado.text.strip()
 
         if len(texto) > 0:
-            if len(datas) % 3 == 0:
+            if i % 3 == 0:
                 datas.append(texto)
-            elif len(datas) % 3 == 1:
+            elif i % 3 == 1:
                 precos.append(texto)
             else:
-                if len(precos) < len(datas):
-                    precos.append('')
+                variacoes.append(texto)
 
     # Preencher com espaços vazios se as listas tiverem comprimentos diferentes
     if len(precos) < len(datas):
@@ -54,8 +54,8 @@ def obter_informacoes_commodity(commodity):
     elif len(precos) > len(datas):
         datas.extend([''] * (len(precos) - len(datas)))
 
-    # Criar um dataframe com as colunas "Datas" e "Preços"
-    df = pd.DataFrame({"Datas": datas, "Preços": precos})
+    # Criar um dataframe com as colunas "Datas", "Preços" e "Variação %"
+    df = pd.DataFrame({"Datas": datas, "Preços": precos, "Variação %": variacoes})
 
     # Exibir o dataframe
     st.write(df)
