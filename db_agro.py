@@ -45,7 +45,14 @@ def obter_informacoes_commodity(commodity):
             elif len(datas) % 3 == 1:
                 precos.append(texto)
             else:
-                precos.append('')
+                if len(precos) < len(datas):
+                    precos.append('')
+
+    # Preencher com espaços vazios se as listas tiverem comprimentos diferentes
+    if len(precos) < len(datas):
+        precos.extend([''] * (len(datas) - len(precos)))
+    elif len(precos) > len(datas):
+        datas.extend([''] * (len(precos) - len(datas)))
 
     # Criar um dataframe com as colunas "Datas" e "Preços"
     df = pd.DataFrame({"Datas": datas, "Preços": precos})
@@ -58,4 +65,3 @@ st.title("Obter Informações de Commodity")
 commodity = st.text_input("Digite o nome da commodity")
 if st.button("Obter Informações"):
     obter_informacoes_commodity(commodity.lower().replace(' ', '-'))
-
