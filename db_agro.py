@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import streamlit as st
+from unidecode import unidecode
 
 def obter_informacoes_commodity(commodity):
     url = f"https://www.noticiasagricolas.com.br/cotacoes/{commodity}"
@@ -60,10 +61,12 @@ def obter_informacoes_commodity(commodity):
 
 # Configuração do Streamlit
 st.title("Informações de Commodity")
-commodity = st.text_input("Digite o nome da commodity (em minúsculas e sem espaços):")
+commodity = st.text_input("Digite o nome da commodity:")
 
 if st.button("Buscar"):
     if commodity:
+        # Remover acentos e converter para minúsculas
+        commodity = unidecode(commodity.lower().strip())
         obter_informacoes_commodity(commodity)
     else:
         st.warning("Digite o nome da commodity.")
