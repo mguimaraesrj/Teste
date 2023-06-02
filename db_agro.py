@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+import streamlit as st
 
 def obter_informacoes_commodity(commodity):
     url = f"https://www.noticiasagricolas.com.br/cotacoes/{commodity}"
@@ -9,16 +10,16 @@ def obter_informacoes_commodity(commodity):
 
     # Obter o título
     titulo = soup.find('a', {'href': f'/cotacoes/{commodity}'}).text
-    print("Título:", titulo)
+    st.write("Título:", titulo)
 
     # Obter as informações na segunda coluna (td) da segunda linha (tr)
     linha_tabela = soup.find_all('tr')[1]
     dados_tabela = linha_tabela.find_all('td')[1].text
-    print("Informação:", dados_tabela)
+    st.write("Informação:", dados_tabela)
 
     # Para obter o histórico de preços do produto
     link_historico = soup.find('a', {"class": "mostrar-historico"})["href"]
-    print("Link do histórico:", link_historico)
+    st.write("Link do histórico:", link_historico)
 
     # Acessar o novo link gerado por "link_historico"
     novo_link = f"https://www.noticiasagricolas.com.br{link_historico}"
@@ -55,10 +56,14 @@ def obter_informacoes_commodity(commodity):
     df = pd.DataFrame({"Datas": datas[:tamanho], "Preços": precos[:tamanho]})
 
     # Exibir o dataframe
-    print(df)
+    st.write(df)
 
-# Obter a commodity desejada do usuário
-commodity = input("Digite o nome da commodity: ").lower().replace(' ', '-')
+# Configuração do Streamlit
+st.title("Informações de Commodity")
+commodity = st.text_input("Digite o nome da commodity (em minúsculas e sem espaços):")
 
-# Chamar a função com a commodity fornecida pelo usuário
-obter_informacoes_commodity(commodity)
+if st.button("Buscar"):
+    if commodity:
+        obter_informacoes_commodity(commodity)
+    else:
+        st.warning("Digite o nome da commodity.")
