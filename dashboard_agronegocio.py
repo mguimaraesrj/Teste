@@ -1,6 +1,8 @@
 import streamlit as st
 import requests
 from bs4 import BeautifulSoup
+import matplotlib.pyplot as plt
+import pandas as pd
 
 def obter_informacoes_commodity(commodity):
     url = f"https://www.noticiasagricolas.com.br/cotacoes/{commodity}"
@@ -29,12 +31,25 @@ def obter_informacoes_commodity(commodity):
     historico_dados = []
     for i, td in enumerate(dados_td):
         if i < 30:
-            historico_dados.append(td.text)
+            historico_dados.append(float(td.text.replace(',', '.')))
         else:
             break
 
     st.subheader("Dados do histórico (Últimos 30 dias)")
     st.write(historico_dados)
+
+    # Criar um DataFrame com os dados históricos
+    df = pd.DataFrame(historico_dados, columns=["Preço"])
+    df.index = pd.date_range(end=pd.Timestamp.now().date(), periods=len(df), freq='D')
+
+    # Plotar o gráfico de linha
+    st.subheader("Variação do Preço (Últimos 30 dias)")
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.plot(df.index, df['Preço'], marker='o', linestyle='-')
+    ax.set_xlabel('Data')
+    ax.set_ylabel('Preço')
+    ax.set_xticklabels(df.index, rotation=45)
+    st.pyplot(fig)
 
 # Título da página
 st.title("Obter Informações de Commodity")
