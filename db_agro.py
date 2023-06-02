@@ -70,3 +70,4 @@ if st.button("Buscar"):
         obter_informacoes_commodity(commodity)
     else:
         st.warning("Digite o nome da commodity.")
+
