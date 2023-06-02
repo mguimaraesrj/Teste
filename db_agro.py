@@ -2,7 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import streamlit as st
-from unidecode import unidecode
+import unicodedata
+
+def normalize_text(text):
+    text = unicodedata.normalize('NFD', text).encode('ascii', 'ignore').decode('utf-8')
+    return text.lower()
 
 def obter_informacoes_commodity(commodity):
     url = f"https://www.noticiasagricolas.com.br/cotacoes/{commodity}"
@@ -39,7 +43,7 @@ def obter_informacoes_commodity(commodity):
         texto = resultado.text.strip()
 
         if tipo_resultado == 0:
-            datas.append(texto)
+            datas.append(normalize_text(texto))
         elif tipo_resultado == 1:
             precos.append(texto)
 
@@ -59,15 +63,8 @@ def obter_informacoes_commodity(commodity):
     # Exibir o dataframe
     st.write(df)
 
-# Configuração do Streamlit
-st.title("Informações de Commodity")
-commodity = st.text_input("Digite o nome da commodity:")
+# Obter a commodity desejada do usuário
+commodity = input("Digite o nome da commodity: ").lower().replace(' ', '-')
 
-if st.button("Buscar"):
-    if commodity:
-        # Remover acentos e converter para minúsculas
-        commodity = unidecode(commodity.lower().strip())
-        obter_informacoes_commodity(commodity)
-    else:
-        st.warning("Digite o nome da commodity.")
-
+# Chamar a função com a commodity fornecida pelo usuário
+obter_informacoes_commodity(commodity)
