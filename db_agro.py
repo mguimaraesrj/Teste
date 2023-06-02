@@ -44,11 +44,8 @@ def obter_informacoes_commodity(commodity):
                 datas.append(texto)
             elif len(datas) % 3 == 1:
                 precos.append(texto)
-
-    # Verificar se as listas têm o mesmo comprimento
-    if len(datas) != len(precos):
-        st.write("Erro: As listas de datas e preços têm comprimentos diferentes.")
-        return
+            else:
+                precos.append('')
 
     # Criar um dataframe com as colunas "Datas" e "Preços"
     df = pd.DataFrame({"Datas": datas, "Preços": precos})
@@ -61,3 +58,4 @@ st.title("Obter Informações de Commodity")
 commodity = st.text_input("Digite o nome da commodity")
 if st.button("Obter Informações"):
     obter_informacoes_commodity(commodity.lower().replace(' ', '-'))
+
