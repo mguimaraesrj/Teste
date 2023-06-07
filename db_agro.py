@@ -36,9 +36,6 @@ def obter_informacoes_commodity(commodity):
     variacoes = []
 
     for i, resultado in enumerate(resultados):
-        if len(datas) >= 11:
-            break
-
         texto = resultado.text.strip()
 
         if len(texto) > 0:
@@ -49,11 +46,11 @@ def obter_informacoes_commodity(commodity):
             else:
                 variacoes.append(texto)
 
-    # Preencher com espaços vazios se as listas tiverem comprimentos diferentes
-    if len(precos) < len(datas):
-        precos.extend([''] * (len(datas) - len(precos)))
-    elif len(precos) > len(datas):
-        datas.extend([''] * (len(precos) - len(datas)))
+    # Verificar se as listas têm o mesmo comprimento
+    min_length = min(len(datas), len(precos), len(variacoes))
+    datas = datas[:min_length]
+    precos = precos[:min_length]
+    variacoes = variacoes[:min_length]
 
     # Criar um dataframe com as colunas "Datas", "Preços" e "Variação %"
     df = pd.DataFrame({"Datas": datas, "Preços": precos, "Variação %": variacoes})
@@ -64,8 +61,8 @@ def obter_informacoes_commodity(commodity):
     # Exibir o dataframe
     st.write(df)
 
-    # Verificar se há dados para plotar o gráfico
-    if len(df) > 0:
+    # Verificar se há dados suficientes para plotar o gráfico
+    if len(df) >= 2:
         # Criar um gráfico de linha com base nos preços históricos
         fig, ax = plt.subplots()
         ax.plot(df["Datas"], df["Preços"])
@@ -78,6 +75,8 @@ def obter_informacoes_commodity(commodity):
 
         # Exibir o gráfico
         st.pyplot(fig)
+    else:
+        st.write("Não há dados suficientes para plotar o gráfico.")
 
 # Criar a interface do Streamlit
 st.title("Obter Informações de Commodity")
