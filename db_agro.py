@@ -1,8 +1,9 @@
+import streamlit as st
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-import streamlit as st
-import plotly.express as px
+import matplotlib.pyplot as plt
+
 
 def obter_informacoes_commodity(commodity):
     url = f"https://www.noticiasagricolas.com.br/cotacoes/{commodity}"
@@ -31,46 +32,54 @@ def obter_informacoes_commodity(commodity):
     resultados = novo_soup.find_all('td')
 
     # Organizar os resultados em listas separadas para cada coluna
+    tipo_resultado = 0
     datas = []
     precos = []
-    variacoes = []
 
-    for i, resultado in enumerate(resultados):
+    for resultado in resultados:
         texto = resultado.text.strip()
 
-        if len(texto) > 0:
-            if i % 3 == 0:
-                datas.append(texto)
-            elif i % 3 == 1:
-                precos.append(texto)
-            else:
-                variacoes.append(texto)
+        if tipo_resultado == 0:
+            datas.append(texto)
+        elif tipo_resultado == 1:
+            precos.insert(0, texto)  # Inverter a ordem dos preços, inserindo-os no início da lista
 
-    # Verificar se as listas têm o mesmo comprimento
-    min_length = min(len(datas), len(precos), len(variacoes))
-    datas = datas[:min_length]
-    precos = precos[:min_length]
-    variacoes = variacoes[:min_length]
+        tipo_resultado += 1
+        if tipo_resultado == 3:
+            tipo_resultado = 0
 
-    # Criar um dataframe com as colunas "Datas", "Preços" e "Variação %"
-    df = pd.DataFrame({"Datas": datas, "Preços": precos, "Variação %": variacoes})
+        if len(datas) >= 11:
+            break
 
-    # Converter a coluna de preços para numérico
-    df["Preços"] = pd.to_numeric(df["Preços"], errors="coerce")
+    # Verificar se as listas têm o mesmo tamanho
+    tamanho = min(len(datas), len(precos))
+
+    # Criar um dataframe com as colunas "Datas" e "Preços"
+    df = pd.DataFrame({"Datas": datas[:tamanho], "Preços": precos[:tamanho]})
+
+    # Inverter a ordem das datas
+    df = df.iloc[::-1]
 
     # Exibir o dataframe
     st.write(df)
 
-    # Verificar se há dados suficientes para plotar o gráfico
-    if len(df) >= 2:
-        # Criar um gráfico de linha interativo com base nos preços históricos usando a biblioteca plotly
-        fig = px.line(df, x="Datas", y="Preços", title="Histórico de Preços")
-        st.plotly_chart(fig)
-    else:
-        st.write("Não há dados suficientes para plotar o gráfico.")
+    # Plotar o gráfico
+    plt.plot(df["Datas"], df["Preços"])
+    plt.xlabel("Datas")
+    plt.ylabel("Preços")
+    plt.title("Histórico de Preços")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    st.pyplot()
 
-# Criar a interface do Streamlit
-st.title("Obter Informações de Commodity")
-commodity = st.text_input("Digite o nome da commodity")
-if st.button("Obter Informações"):
-    obter_informacoes_commodity(commodity.lower().replace(' ', '-'))
+
+# Título do aplicativo
+st.title("Histórico de Preços de Commodities")
+
+# Obter a commodity desejada do usuário
+commodity = st.text_input("Digite o nome da commodity").lower().replace(' ', '-')
+
+# Verificar se o usuário digitou uma commodity
+if commodity:
+    # Chamar a função com a commodity fornecida pelo usuário
+    obter_informacoes_commodity(commodity)
