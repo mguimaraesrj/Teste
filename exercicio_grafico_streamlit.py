@@ -1,12 +1,12 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 import streamlit as st
 
-data = pd.read_csv("allJobs.csv")
+# Carregar o arquivo CSV
+file_path = st.file_uploader("Selecione o arquivo CSV", type="csv")
 
-plt.plot(data["x"], data["y"])
-plt.xlabel("Valores de X")
-plt.ylabel("Valores de Y")
-plt.title("Gráfico de Linhas")
+if file_path is not None:
+    data = pd.read_csv(file_path)
 
-st.pyplot()
+    # Opção para selecionar a quantidade de linhas a exibir
+    num_rows = st.slider("Quantidade de linhas a exibir", 1, len(data), 10)
+    st.write(data.head(num_rows))
