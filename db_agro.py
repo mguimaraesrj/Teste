@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import streamlit as st
+import matplotlib.pyplot as plt
 
 def obter_informacoes_commodity(commodity):
     url = f"https://www.noticiasagricolas.com.br/cotacoes/{commodity}"
@@ -57,8 +58,26 @@ def obter_informacoes_commodity(commodity):
     # Criar um dataframe com as colunas "Datas", "Preços" e "Variação %"
     df = pd.DataFrame({"Datas": datas, "Preços": precos, "Variação %": variacoes})
 
+    # Converter a coluna de preços para numérico
+    df["Preços"] = pd.to_numeric(df["Preços"], errors="coerce")
+
     # Exibir o dataframe
     st.write(df)
+
+    # Verificar se há dados para plotar o gráfico
+    if len(df) > 0:
+        # Criar um gráfico de linha com base nos preços históricos
+        fig, ax = plt.subplots()
+        ax.plot(df["Datas"], df["Preços"])
+        ax.set_title("Histórico de Preços")
+        ax.set_xlabel("Data")
+        ax.set_ylabel("Preço")
+
+        # Girar os rótulos do eixo x para evitar sobreposição
+        plt.xticks(rotation=45)
+
+        # Exibir o gráfico
+        st.pyplot(fig)
 
 # Criar a interface do Streamlit
 st.title("Obter Informações de Commodity")
