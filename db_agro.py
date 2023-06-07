@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import streamlit as st
-import matplotlib.pyplot as plt
+import plotly.express as px
 
 def obter_informacoes_commodity(commodity):
     url = f"https://www.noticiasagricolas.com.br/cotacoes/{commodity}"
@@ -63,18 +63,9 @@ def obter_informacoes_commodity(commodity):
 
     # Verificar se há dados suficientes para plotar o gráfico
     if len(df) >= 2:
-        # Criar um gráfico de linha com base nos preços históricos
-        fig, ax = plt.subplots()
-        ax.plot(df["Datas"], df["Preços"])
-        ax.set_title("Histórico de Preços")
-        ax.set_xlabel("Data")
-        ax.set_ylabel("Preço")
-
-        # Girar os rótulos do eixo x para evitar sobreposição
-        plt.xticks(rotation=45)
-
-        # Exibir o gráfico
-        st.pyplot(fig)
+        # Criar um gráfico de linha interativo com base nos preços históricos usando a biblioteca plotly
+        fig = px.line(df, x="Datas", y="Preços", title="Histórico de Preços")
+        st.plotly_chart(fig)
     else:
         st.write("Não há dados suficientes para plotar o gráfico.")
 
