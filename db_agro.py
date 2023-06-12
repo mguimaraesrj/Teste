@@ -1,9 +1,7 @@
-import streamlit as st
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-import matplotlib.pyplot as plt
-
+import streamlit as st
 
 def obter_informacoes_commodity(commodity):
     url = f"https://www.noticiasagricolas.com.br/cotacoes/{commodity}"
@@ -64,22 +62,14 @@ def obter_informacoes_commodity(commodity):
     st.write(df)
 
     # Plotar o gráfico
-    plt.plot(df["Datas"], df["Preços"])
-    plt.xlabel("Datas")
-    plt.ylabel("Preços")
-    plt.title("Histórico de Preços")
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-    st.pyplot()
+    st.line_chart(df.set_index("Datas"))
 
-
-# Título do aplicativo
-st.title("Histórico de Preços de Commodities")
+# Cabeçalho do aplicativo
+st.title("Histórico de Preços de Commodity")
 
 # Obter a commodity desejada do usuário
 commodity = st.text_input("Digite o nome da commodity").lower().replace(' ', '-')
 
-# Verificar se o usuário digitou uma commodity
-if commodity:
-    # Chamar a função com a commodity fornecida pelo usuário
+# Chamar a função com a commodity fornecida pelo usuário
+if st.button("Obter Informações"):
     obter_informacoes_commodity(commodity)
