@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import streamlit as st
+import matplotlib.pyplot as plt
 from datetime import datetime
 
 def obter_informacoes_commodity(commodity):
@@ -66,8 +67,13 @@ def obter_informacoes_commodity(commodity):
     st.write(df)
 
     # Plotar o gráfico
-    chart = st.line_chart(df.set_index("Datas"))
-    chart.x_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo x
+    fig, ax = plt.subplots()
+    ax.plot(df["Datas"], df["Preços"])
+    ax.set_xlabel("Datas")
+    ax.set_ylabel("Preços")
+    ax.set_title("Histórico de Preços")
+    ax.tick_params(axis='x', rotation=45)
+    st.pyplot(fig)
 
 # Cabeçalho do aplicativo
 st.title("Histórico de Preços de Commodity")
