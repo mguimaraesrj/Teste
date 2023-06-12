@@ -73,7 +73,7 @@ def obter_informacoes_commodity(commodity):
 st.title("Histórico de Preços de Commodity")
 
 # Obter a commodity desejada do usuário
-commodity = st.text_input("Digite o nome da commodity").lower().replace(' ', '-')
+commodity = st.text_input("Digite o nome da commodity")
 
 # Chamar a função com a commodity fornecida pelo usuário
 if st.button("Obter Informações"):
