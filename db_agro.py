@@ -70,7 +70,7 @@ def obter_informacoes_commodity(commodity):
     chart.x_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo x
 
 # Cabeçalho do aplicativo
-st.title("Agroboard - o dashboard Agro!")
+st.title("Agroboard - o dashboard Agro")
 
 # Obter a commodity desejada do usuário
 commodity = st.text_input("Digite o nome da commodity com letras minúsculas e sem espaço")
