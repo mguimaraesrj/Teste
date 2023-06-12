@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import streamlit as st
+from datetime import datetime
 
 def obter_informacoes_commodity(commodity):
     url = f"https://www.noticiasagricolas.com.br/cotacoes/{commodity}"
@@ -52,17 +53,21 @@ def obter_informacoes_commodity(commodity):
     # Verificar se as listas têm o mesmo tamanho
     tamanho = min(len(datas), len(precos))
 
-    # Criar um dataframe com as colunas "Datas" e "Preços"
-    df = pd.DataFrame({"Datas": datas[:tamanho], "Preços": precos[:tamanho]})
+    # Converter as datas para o formato correto
+    datas_formatadas = [datetime.strptime(data, "%d/%m/%Y") for data in datas[:tamanho]]
 
-    # Inverter a ordem das datas
-    df = df.iloc[::-1]
+    # Criar um dataframe com as colunas "Datas" e "Preços"
+    df = pd.DataFrame({"Datas": datas_formatadas, "Preços": precos[:tamanho]})
+
+    # Ordenar o dataframe por data
+    df = df.sort_values(by="Datas")
 
     # Exibir o dataframe
     st.write(df)
 
     # Plotar o gráfico
-    st.line_chart(df.set_index("Datas"))
+    chart = st.line_chart(df.set_index("Datas"))
+    chart.x_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo x
 
 # Cabeçalho do aplicativo
 st.title("Histórico de Preços de Commodity")
