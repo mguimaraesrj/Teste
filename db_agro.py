@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import streamlit as st
-import matplotlib.pyplot as plt
 from datetime import datetime
 
 def obter_informacoes_commodity(commodity):
@@ -42,7 +41,7 @@ def obter_informacoes_commodity(commodity):
         if tipo_resultado == 0:
             datas.append(texto)
         elif tipo_resultado == 1:
-            precos.append(float(texto))
+            precos.insert(0, texto)  # Inverter a ordem dos preços, inserindo-os no início da lista
 
         tipo_resultado += 1
         if tipo_resultado == 3:
@@ -60,29 +59,21 @@ def obter_informacoes_commodity(commodity):
     # Criar um dataframe com as colunas "Datas" e "Preços"
     df = pd.DataFrame({"Datas": datas_formatadas, "Preços": precos[:tamanho]})
 
-    # Ordenar o dataframe por preço em ordem crescente
-    df = df.sort_values(by="Preços")
+    # Ordenar o dataframe por data
+    df = df.sort_values(by="Datas")
 
     # Exibir o dataframe
     st.write(df)
 
     # Plotar o gráfico
-    fig, ax = plt.subplots()
-    ax.plot(df["Datas"], df["Preços"])
-    ax.set_xlabel("Datas")
-    ax.set_ylabel("Preços")
-    ax.set_title("Histórico de Preços")
-    ax.tick_params(axis='x', rotation=45)
-    st.pyplot(fig)
+    chart = st.line_chart(df.set_index("Datas"))
+    chart.x_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo x
 
 # Cabeçalho do aplicativo
 st.title("Histórico de Preços de Commodity")
 
 # Obter a commodity desejada do usuário
 commodity = st.text_input("Digite o nome da commodity")
-
-# Converter a commodity para letras minúsculas
-commodity = commodity.lower()
 
 # Chamar a função com a commodity fornecida pelo usuário
 if st.button("Obter Informações"):
