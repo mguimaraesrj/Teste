@@ -76,11 +76,9 @@ st.title("Agroboard - o dashboard Agro")
 commodity_opcoes = ["Boi Gordo", "Soja", "Café", "Trigo", "Frango", "Laranja", "Milho"]
 
 # Selecionar a commodity desejada do usuário
-commodity = st.selectbox("Selecione uma commodity", commodity_opcoes)
-commodity_url = []
-for elemento in commmodity_opcoes:
-    commodity_url += elemento.lower().replace(" ","-")
-print(commodity_url)
+commodity_atualizada = ['boi-gordo', 'soja', 'cafe', 'trigo', 'frango', 'laranja', 'milho']
+commodity = st.selectbox("Selecione uma commodity", commodity_atualizada)
+
 
 # Verificar se alguma commodity foi selecionada antes de chamar a função
 if commodity:
