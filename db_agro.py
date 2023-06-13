@@ -69,11 +69,26 @@ def obter_informacoes_commodity(commodity):
     chart = st.line_chart(df.set_index("Datas"))
     chart.x_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo x
 
+
 # Cabeçalho do aplicativo
 st.title("Agroboard - o dashboard Agro")
 
 # Opções pré-estabelecidas para o usuário selecionar
 commodity_opcoes = ["Boi Gordo", "Soja", "Café", "Trigo", "Frango", "Laranja", "Milho"]
+commodity_opcoes_correlacionadas = ["boi Gordo", "soja", "cafe", "trigo", "frango", "laranja", "milho"]
+
+# Criar o dicionário de correlação
+correlacao = {commodity_opcoes[i]: commodity_opcoes_correlacionadas[i] for i in range(len(commodity_opcoes))}
 
 # Selecionar a commodity desejada do usuário
-st.selectbox("Selecione uma commodity", commodity_opcoes)
+commodity = st.selectbox("Selecione uma commodity", commodity_opcoes)
+
+# Substituir a opção selecionada pelo usuário pela opção correlacionada
+commodity_correlacionada = correlacao.get(commodity)
+
+# Verificar se a opção selecionada tem uma correspondência
+if commodity_correlacionada:
+    # Chamada da função com a commodity correlacionada
+    obter_informacoes_commodity(commodity_correlacionada)
+else:
+    st.write("Não foi encontrada uma correspondência para a commodity selecionada.")
