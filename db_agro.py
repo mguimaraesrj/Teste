@@ -78,17 +78,20 @@ commodity_opcoes = ["Boi Gordo", "Soja", "Café", "Trigo", "Frango", "Laranja", 
 commodity_opcoes_correlacionadas = ["boi Gordo", "soja", "cafe", "trigo", "frango", "laranja", "milho"]
 
 # Criar o dicionário de correlação
-correlacao = {commodity_opcoes[i]: commodity_opcoes_correlacionadas[i] for i in range(len(commodity_opcoes))}
+correlacao = dict(zip(commodity_opcoes, commodity_opcoes_correlacionadas))
 
 # Selecionar a commodity desejada do usuário
-commodity = st.selectbox("Selecione uma commodity", commodity_opcoes)
+commodity_selecionada = st.selectbox("Selecione uma commodity", commodity_opcoes)
 
 # Substituir a opção selecionada pelo usuário pela opção correlacionada
-commodity_correlacionada = correlacao.get(commodity)
+commodity_correlacionada = correlacao.get(commodity_selecionada)
 
 # Verificar se a opção selecionada tem uma correspondência
 if commodity_correlacionada:
+    # Atualizar a variável commodity com a opção correlacionada
+    commodity = commodity_correlacionada
+    
     # Chamada da função com a commodity correlacionada
-    obter_informacoes_commodity(commodity_correlacionada)
+    obter_informacoes_commodity(commodity)
 else:
     st.write("Não foi encontrada uma correspondência para a commodity selecionada.")
