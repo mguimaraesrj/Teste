@@ -100,6 +100,3 @@ if st.button("Iniciar"):
         obter_informacoes_commodity(commodity)
     else:
         st.write("Não foi encontrada uma correspondência para a commodity selecionada.")
-
-# Exibir link do vídeo
-st.text("Não deixe de ouvir!" "https://www.youtube.com/watch?v=aFk363XM-N8")
