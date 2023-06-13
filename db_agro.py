@@ -74,6 +74,7 @@ st.title("Agroboard - o dashboard Agro")
 
 # Obter a commodity desejada do usuário
 commodity = st.text_input("Digite o nome da commodity com letras minúsculas e sem espaço")
+commodity = commodity.lower().replace(' ', '-')
 
 # Chamar a função com a commodity fornecida pelo usuário
 if st.button("Obter Informações"):
