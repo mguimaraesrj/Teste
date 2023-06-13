@@ -69,6 +69,8 @@ def obter_informacoes_commodity(commodity):
     chart = st.line_chart(df.set_index("Datas"))
     chart.x_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo x
 
+    st.text("Não deixe de ouvir este som! Acesse:" "https://www.youtube.com/watch?v=aFk363XM-N8")
+
 
 # Cabeçalho do aplicativo
 st.title("Agroboard - o dashboard Agro")
