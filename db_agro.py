@@ -73,24 +73,25 @@ def obter_informacoes_commodity(commodity):
 # Cabeçalho do aplicativo
 st.title("Agroboard - o dashboard Agro")
 
-# Opções pré-estabelecidas para o usuário selecionar
-commodity_opcoes = ["Boi Gordo", "Soja", "Café", "Trigo", "Frango", "Laranja", "Milho"]
-commodity_opcoes_correlacionadas = ["boi Gordo", "soja", "cafe", "trigo", "frango", "laranja", "milho"]
-
-# Criar o dicionário de correlação
-correlacao = dict(zip(commodity_opcoes, commodity_opcoes_correlacionadas))
+# Dicionário de correlação entre a chave (opção selecionada) e o valor (commodity correspondente)
+commodity_correlacao = {
+    "Boi Gordo": "boi-gordo",
+    "Soja": "soja",
+    "Café": "cafe",
+    "Trigo": "trigo",
+    "Frango": "frango",
+    "Laranja": "laranja",
+    "Milho": "milho"
+}
 
 # Selecionar a commodity desejada do usuário
-commodity_selecionada = st.selectbox("Selecione uma commodity", commodity_opcoes)
-
-# Substituir a opção selecionada pelo usuário pela opção correlacionada
-commodity_correlacionada = correlacao.get(commodity_selecionada)
+commodity_selecionada = st.selectbox("Selecione uma commodity", list(commodity_correlacao.keys()))
 
 # Verificar se a opção selecionada tem uma correspondência
-if commodity_correlacionada:
-    # Atualizar a variável commodity com a opção correlacionada
-    commodity = commodity_correlacionada
-    
+if commodity_selecionada in commodity_correlacao:
+    # Obter o valor correspondente no dicionário de correlação
+    commodity = commodity_correlacao[commodity_selecionada]
+
     # Chamada da função com a commodity correlacionada
     obter_informacoes_commodity(commodity)
 else:
