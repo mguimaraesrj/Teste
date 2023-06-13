@@ -98,3 +98,13 @@ if st.button("Iniciar"):
         obter_informacoes_commodity(commodity)
     else:
         st.write("Não foi encontrada uma correspondência para a commodity selecionada.")
+
+# Link do vídeo do YouTube
+youtube_link = "https://www.youtube.com/watch?v=aFk363XM-N8"
+
+# Download do vídeo do YouTube
+yt = YouTube(youtube_link)
+video_file = yt.streams.get_highest_resolution().download()
+
+# Reproduzir vídeo do YouTube
+st.video(video_file)
