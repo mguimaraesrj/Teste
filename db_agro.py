@@ -79,7 +79,7 @@ commodity_opcoes = ["Boi Gordo", "Soja", "Café", "Trigo", "Frango", "Laranja", 
 commodity = st.selectbox("Selecione uma commodity", commodity_opcoes)
 commodity_url = []
 for elemento in commmodity_opcoes:
-    commodity_url += commodity.lower().replace(" ","-")
+    commodity_url += elemento.lower().replace(" ","-")
 print(commodity_url)
 
 # Verificar se alguma commodity foi selecionada antes de chamar a função
