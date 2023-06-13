@@ -73,11 +73,13 @@ def obter_informacoes_commodity(commodity):
 st.title("Agroboard - o dashboard Agro")
 
 # Opções pré-estabelecidas para o usuário selecionar
-commodity_opcoes = ["Boi Gordo", "Café", "Soja"]
+commodity_opcoes = ["milho", "soja", "trigo"]
 
 # Selecionar a commodity desejada do usuário
 commodity = st.selectbox("Selecione uma commodity", commodity_opcoes)
 
-# Chamar a função com a commodity selecionada pelo usuário
-if st.button("Obter Informações"):
-    obter_informacoes_commodity(commodity)
+# Verificar se alguma commodity foi selecionada antes de chamar a função
+if commodity:
+    # Chamar a função com a commodity selecionada pelo usuário
+    if st.button("Obter Informações"):
+        obter_informacoes_commodity(commodity)
