@@ -72,10 +72,12 @@ def obter_informacoes_commodity(commodity):
 # Cabeçalho do aplicativo
 st.title("Agroboard - o dashboard Agro")
 
-# Obter a commodity desejada do usuário
-commodity = st.text_input("Digite o nome da commodity com letras minúsculas e sem espaço")
-commodity = commodity.lower().replace(' ', '-')
+# Opções pré-estabelecidas para o usuário selecionar
+commodity_opcoes = ["Boi Gordo", "Café", "Soja"]
 
-# Chamar a função com a commodity fornecida pelo usuário
+# Selecionar a commodity desejada do usuário
+commodity = st.selectbox("Selecione uma commodity", commodity_opcoes)
+
+# Chamar a função com a commodity selecionada pelo usuário
 if st.button("Obter Informações"):
     obter_informacoes_commodity(commodity)
