@@ -84,11 +84,11 @@ commodity_correlacao = {
     "Milho": "milho"
 }
 
+# Selecionar a commodity desejada do usuário
+commodity_selecionada = st.selectbox("Selecione uma commodity", list(commodity_correlacao.keys()))
+
 # Botão para iniciar o programa
 if st.button("Iniciar"):
-    # Selecionar a commodity desejada do usuário
-    commodity_selecionada = st.selectbox("Selecione uma commodity", list(commodity_correlacao.keys()))
-
     # Verificar se a opção selecionada tem uma correspondência
     if commodity_selecionada in commodity_correlacao:
         # Obter o valor correspondente no dicionário de correlação
