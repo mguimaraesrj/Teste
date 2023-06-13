@@ -77,10 +77,3 @@ commodity_opcoes = ["Boi Gordo", "Soja", "Café", "Trigo", "Frango", "Laranja", 
 
 # Selecionar a commodity desejada do usuário
 st.selectbox("Selecione uma commodity", commodity_opcoes)
-
-
-# Verificar se alguma commodity foi selecionada antes de chamar a função
-if commodity:
-    # Chamar a função com a commodity selecionada pelo usuário
-    if st.button("Obter Informações"):
-        obter_informacoes_commodity(commodity)
