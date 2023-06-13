@@ -99,12 +99,25 @@ if st.button("Iniciar"):
     else:
         st.write("Não foi encontrada uma correspondência para a commodity selecionada.")
 
-# Link do vídeo do YouTube
-youtube_link = "https://www.youtube.com/watch?v=aFk363XM-N8"
+import streamlit as st
 
-# Download do vídeo do YouTube
-yt = YouTube(youtube_link)
-video_file = yt.streams.get_highest_resolution().download()
+# Cabeçalho do aplicativo
+st.title("Aplicativo com Música e Vídeo")
+
+# Carregar o arquivo de áudio
+audio_file = "caminho/do/arquivo/musica.mp3"
+
+# Reproduzir música
+def play_music():
+    st.audio(audio_file, format="audio/mp3")
+
+# Botão para reproduzir música
+if st.button("Reproduzir Música"):
+    play_music()
+
+# Link do vídeo do YouTube
+youtube_link = "https://www.youtube.com/watch?v=video_id"
 
 # Reproduzir vídeo do YouTube
-st.video(video_file)
+st.video(youtube_link)
+
