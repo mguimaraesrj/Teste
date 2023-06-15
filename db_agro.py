@@ -18,8 +18,7 @@ def obter_informacoes_commodity(commodity):
     dados_tabela = linha_tabela.find_all('td')[1].text
 
     # Exibir a cotação atual
-    st.sidebar.markdown(f"<h3 style='font-weight:bold;'>Cotação atual:</h3>", unsafe_allow_html=True)
-    st.sidebar.markdown(f"<p style='font-size:18px;'>{dados_tabela}</p>", unsafe_allow_html=True)
+    st.sidebar.write("**Cotação atual:**", dados_tabela)
 
     # Para obter o histórico de preços do produto
     link_historico = soup.find('a', {"class": "mostrar-historico"})["href"]
@@ -66,13 +65,10 @@ def obter_informacoes_commodity(commodity):
 
     # Exibir o título "Histórico de Preços"
     st.subheader("Histórico de Preços")
-    st.write(link_historico_completo)
+    st.write("Link histórico:", link_historico_completo)
 
-    # Exibir o botão para alternar entre a exibição da tabela e apenas o gráfico
-    exibir_tabela = st.button("Exibir Tabela")
-
-    if exibir_tabela:
-        st.write(df[["Datas", "Preços"]])
+    # Exibir o dataframe com as colunas "Datas" e "Preços"
+    st.write(df[["Datas", "Preços"]])
 
     # Plotar o gráfico
     chart = st.line_chart(df.set_index("Datas"))
@@ -87,13 +83,14 @@ commodity_correlacao = {
     "Boi Gordo 🐂": "boi-gordo",
     "Soja 🌱": "soja",
     "Café ☕": "cafe",
+    "Trigo 🌾": "trigo",
     "Frango 🐥": "frango",
     "Laranja 🍊": "laranja",
     "Milho 🌽": "milho"
 }
 
 # Selecionar a commodity desejada do usuário na barra lateral
-commodity_selecionada = st.sidebar.selectbox("<h2 style='font-weight:bold;'>Categorias (Commodities)</h2>", list(commodity_correlacao.keys()), unsafe_allow_html=True)
+commodity_selecionada = st.sidebar.selectbox("Categorias (Commodities)", list(commodity_correlacao.keys()))
 
 # Verificar se a opção selecionada tem uma correspondência
 if commodity_selecionada in commodity_correlacao:
