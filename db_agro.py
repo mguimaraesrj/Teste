@@ -63,11 +63,11 @@ def obter_informacoes_commodity(commodity):
 
     # Exibir o título "Histórico de Preços"
     st.subheader("Histórico de Preços")
+    st.write(link_historico_completo)
 
     # Exibir o link do histórico
     st.write(df[["Datas", "Preços"]])
-    st.write("Link do histórico:")
-    st.write(link_historico_completo)
+    
 
     # Plotar o gráfico
     chart = st.line_chart(df.set_index("Datas"))
