@@ -4,18 +4,6 @@ import pandas as pd
 import streamlit as st
 from datetime import datetime
 
-# Configurar a cor de fundo da barra lateral
-st.markdown(
-    """
-    <style>
-    .sidebar .sidebar-content {
-        background-color: green;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
 def obter_informacoes_commodity(commodity):
     url = f"https://www.noticiasagricolas.com.br/cotacoes/{commodity}"
     response = requests.get(url)
@@ -85,6 +73,18 @@ def obter_informacoes_commodity(commodity):
 
 # Cabeçalho do aplicativo
 st.title("Agroboard - o dashboard Agro")
+
+# Configurar a cor de fundo da barra lateral
+st.markdown(
+    """
+    <style>
+    .sidebar .sidebar-content {
+        background-color: green;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Dicionário de correlação entre a chave (opção selecionada) e o valor (commodity correspondente)
 commodity_correlacao = {
