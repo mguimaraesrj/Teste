@@ -76,8 +76,22 @@ def obter_informacoes_commodity(commodity):
     chart.x_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo x
 
 
+# Estilo do título
+title_html = """
+    <style>
+        .title h1 {
+            color: #FFFFFF;
+            background-color: #00C851;
+            padding: 20px;
+            font-size: 32px;
+            margin: 0;
+        }
+    </style>
+"""
+
 # Cabeçalho do aplicativo
-st.title("Agroboard 🐂 🌱")
+st.markdown(title_html, unsafe_allow_html=True)
+st.markdown('<div class="title"><h1>Agroboard 🐂 🌱</h1></div>', unsafe_allow_html=True)
 
 # Dicionário de correlação entre a chave (opção selecionada) e o valor (commodity correspondente)
 commodity_correlacao = {
