@@ -20,12 +20,12 @@ def obter_informacoes_commodity(commodity):
 
     # Para obter o histórico de preços do produto
     link_historico = soup.find('a', {"class": "mostrar-historico"})["href"]
+    link_historico_completo = f"https://www.noticiasagricolas.com.br{link_historico}"
     st.write("Link do histórico:")
-    st.write(link_historico)
+    st.write(link_historico_completo)
 
-    # Acessar o novo link gerado por "link_historico"
-    novo_link = f"https://www.noticiasagricolas.com.br{link_historico}"
-    novo_response = requests.get(novo_link)
+    # Acessar o novo link gerado por "link_historico_completo"
+    novo_response = requests.get(link_historico_completo)
     novo_soup = BeautifulSoup(novo_response.text, 'html.parser')
 
     # Encontrar todas as informações com a tag <td> na nova página
@@ -72,7 +72,6 @@ def obter_informacoes_commodity(commodity):
 
 # Cabeçalho do aplicativo
 st.title("Agroboard 🐂 🌱")
-
 
 # Dicionário de correlação entre a chave (opção selecionada) e o valor (commodity correspondente)
 commodity_correlacao = {
