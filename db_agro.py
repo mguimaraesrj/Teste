@@ -82,7 +82,6 @@ commodity_correlacao = {
     "Boi Gordo 🐂": "boi-gordo",
     "Soja 🌱": "soja",
     "Café ☕": "cafe",
-    "Trigo 🌾": "trigo",
     "Frango 🐥": "frango",
     "Laranja 🍊": "laranja",
     "Milho 🌽": "milho"
