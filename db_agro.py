@@ -70,7 +70,7 @@ def obter_informacoes_commodity(commodity):
     chart.x_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo x
 
 # Cabeçalho do aplicativo
-st.title("Agroboard - o dashboard Agro 🐂 🌱")
+st.title("Agroboard 🐂 🌱")
 
 
 # Dicionário de correlação entre a chave (opção selecionada) e o valor (commodity correspondente)
