@@ -67,8 +67,9 @@ def obter_informacoes_commodity(commodity):
     st.subheader("Histórico de Preços")
     st.markdown(link_historico_completo)
 
-    # Exibir o dataframe com as colunas "Datas" e "Preços"
-    st.write(df[["Datas", "Preços"]])
+    # Exibir o dataframe com as colunas "Datas" e "Preços" apenas se o botão "Exibir Tabela" for clicado
+    if st.button("Exibir Tabela"):
+        st.write(df[["Datas", "Preços"]])
 
     # Plotar o gráfico
     chart = st.line_chart(df.set_index("Datas"))
