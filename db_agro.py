@@ -11,6 +11,7 @@ def obter_informacoes_commodity(commodity):
 
     # Obter o título
     titulo = soup.find('a', {'href': f'/cotacoes/{commodity}'}).text
+   
 
     # Obter as informações na segunda coluna (td) da segunda linha (tr)
     linha_tabela = soup.find_all('tr')[1]
@@ -41,7 +42,7 @@ def obter_informacoes_commodity(commodity):
         if tipo_resultado == 0:
             datas.append(texto)
         elif tipo_resultado == 1:
-            precos.insert(0, float(texto))  # Inverter a ordem dos preços, inserindo-os no início da lista
+            precos.insert(0, texto)  # Inverter a ordem dos preços, inserindo-os no início da lista
 
         tipo_resultado += 1
         if tipo_resultado == 3:
@@ -66,10 +67,11 @@ def obter_informacoes_commodity(commodity):
     st.subheader("Histórico de Preços")
     st.markdown(link_historico_completo)
 
-    # Exibir o dataframe com as colunas "Datas" e "Preços"
-    st.write(df[["Datas", "Preços"]])
+    # Exibir o dataframe com as colunas "Datas" e "Preços" apenas se o botão "Exibir Tabela" for clicado
+    if st.button("Exibir Tabela"):
+        st.write(df[["Datas", "Preços"]])
 
-    # Plotar o gráfico de linhas
+    # Plotar o gráfico
     chart = st.line_chart(df.set_index("Datas"))
     chart.x_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo x
 
