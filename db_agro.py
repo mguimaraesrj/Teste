@@ -72,10 +72,7 @@ def obter_informacoes_commodity(commodity):
         st.write(df[["Datas", "Preços"]])
     else:
         # Plotar o gráfico de barras
-        chart = st.bar_chart(df.set_index("Datas"))
-
-        # Configurar a faixa de valores do eixo x
-        chart.x_range = [df["Datas"].min(), df["Datas"].max()]
+        st.bar_chart(df.set_index("Datas"))
 
 # Estilo do título
 title_html = """
