@@ -68,7 +68,9 @@ def obter_informacoes_commodity(commodity):
     st.write(link_historico_completo)
 
     # Exibir o botão para alternar entre a exibição da tabela e apenas o gráfico
-    if st.button("Exibir Tabela"):
+    exibir_tabela = st.button("Exibir Tabela")
+    
+    if exibir_tabela:
         st.write(df[["Datas", "Preços"]])
 
     # Plotar o gráfico
