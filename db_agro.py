@@ -21,7 +21,7 @@ def obter_informacoes_commodity(commodity):
     # Para obter o histórico de preços do produto
     link_historico = soup.find('a', {"class": "mostrar-historico"})["href"]
     link_historico_completo = f"https://www.noticiasagricolas.com.br{link_historico}"
-    st.write("Histórico de preços")
+    st.write("Link do histórico:")
     st.write(link_historico_completo)
 
     # Acessar o novo link gerado por "link_historico_completo"
@@ -62,6 +62,9 @@ def obter_informacoes_commodity(commodity):
 
     # Ordenar o dataframe por data
     df = df.sort_values(by="Datas")
+
+    # Exibir o título "Histórico de Preços"
+    st.subheader("Histórico de Preços")
 
     # Exibir o dataframe
     st.write(df)
