@@ -65,7 +65,6 @@ def obter_informacoes_commodity(commodity):
 
     # Exibir o título "Histórico de Preços"
     st.subheader("Histórico de Preços")
-    st.write("Link histórico:")
     st.markdown(link_historico_completo)
 
     # Exibir o dataframe com as colunas "Datas" e "Preços"
