@@ -43,7 +43,9 @@ def obter_informacoes_commodity(commodity):
         elif tipo_resultado == 1:
             precos.insert(0, texto)  # Inverter a ordem dos preços, inserindo-os no início da lista
 
-        tipo_resultado = (tipo_resultado + 1) % 3
+        tipo_resultado += 1
+        if tipo_resultado == 3:
+            tipo_resultado = 0
 
         if len(datas) >= 11:
             break
@@ -65,10 +67,9 @@ def obter_informacoes_commodity(commodity):
 
     # Plotar o gráfico
     chart = st.line_chart(df.set_index("Datas"))
-    chart.set_axis_labels("Data", "Preço")
     chart.x_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo x
 
-    st.text("Não deixe de ouvir este som! Acesse: https://www.youtube.com/watch?v=aFk363XM-N8")
+    st.text("Não deixe de ouvir este som! Acesse:" "https://www.youtube.com/watch?v=aFk363XM-N8")
 
 
 # Cabeçalho do aplicativo
