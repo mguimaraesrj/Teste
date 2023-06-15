@@ -63,14 +63,9 @@ def obter_informacoes_commodity(commodity):
     # Ordenar o dataframe por data
     df = df.sort_values(by="Datas")
 
-    # Exibir o título "Histórico de Preços"
+    # Exibir o título "Histórico de Preços" e o dataframe com as colunas desejadas
     st.subheader("Histórico de Preços")
-
-    # Remover a coluna com o número de cada linha
-    df_without_index = df.set_index("Datas").reset_index()
-
-    # Exibir o dataframe sem a coluna de índice
-    st.write(df_without_index)
+    st.write(df[["Datas", "Preços"]])
 
     # Plotar o gráfico
     chart = st.line_chart(df.set_index("Datas"))
