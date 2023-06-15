@@ -20,7 +20,8 @@ def obter_informacoes_commodity(commodity):
 
     # Para obter o histórico de preços do produto
     link_historico = soup.find('a', {"class": "mostrar-historico"})["href"]
-    st.write("Link do histórico:", link_historico)
+    st.write("Link do histórico:")
+    st.markdown(f"[Histórico de Preços]({link_historico})")
 
     # Acessar o novo link gerado por "link_historico"
     novo_link = f"https://www.noticiasagricolas.com.br{link_historico}"
