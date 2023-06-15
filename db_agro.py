@@ -18,8 +18,7 @@ def obter_informacoes_commodity(commodity):
     dados_tabela = linha_tabela.find_all('td')[1].text
 
     # Exibir a cotação atual
-    st.sidebar.markdown("**Cotação atual:**")
-    st.sidebar.write("Cotação atual: R$", dados_tabela)
+    st.sidebar.write("**Cotação atual:** R$", dados_tabela)
 
     # Para obter o histórico de preços do produto
     link_historico = soup.find('a', {"class": "mostrar-historico"})["href"]
