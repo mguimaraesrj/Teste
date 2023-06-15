@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import streamlit as st
-import emoji
 from datetime import datetime
 
 def obter_informacoes_commodity(commodity):
@@ -44,9 +43,7 @@ def obter_informacoes_commodity(commodity):
         elif tipo_resultado == 1:
             precos.insert(0, texto)  # Inverter a ordem dos preços, inserindo-os no início da lista
 
-        tipo_resultado += 1
-        if tipo_resultado == 3:
-            tipo_resultado = 0
+        tipo_resultado = (tipo_resultado + 1) % 3
 
         if len(datas) >= 11:
             break
@@ -68,9 +65,10 @@ def obter_informacoes_commodity(commodity):
 
     # Plotar o gráfico
     chart = st.line_chart(df.set_index("Datas"))
+    chart.set_axis_labels("Data", "Preço")
     chart.x_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo x
 
-    st.text("Não deixe de ouvir este som! Acesse:" "https://www.youtube.com/watch?v=aFk363XM-N8")
+    st.text("Não deixe de ouvir este som! Acesse: https://www.youtube.com/watch?v=aFk363XM-N8")
 
 
 # Cabeçalho do aplicativo
@@ -88,18 +86,16 @@ commodity_correlacao = {
 }
 
 # Selecionar a commodity desejada do usuário
-commodity_selecionada = st.sidebar.selectbox(
-    "Selecione uma commodity",
-    list(commodity_correlacao.keys()),
-    format_func=lambda x: emoji.emojize(f"{x} :{commodity_correlacao[x]}:", use_aliases=True)
-)
+commodity_selecionada = st.selectbox("Selecione uma commodity", list(commodity_correlacao.keys()))
 
-# Verificar se a opção selecionada tem uma correspondência
-if commodity_selecionada in commodity_correlacao:
-    # Obter o valor correspondente no dicionário de correlação
-    commodity = commodity_correlacao[commodity_selecionada]
+# Botão para iniciar o programa
+if st.button("Iniciar"):
+    # Verificar se a opção selecionada tem uma correspondência
+    if commodity_selecionada in commodity_correlacao:
+        # Obter o valor correspondente no dicionário de correlação
+        commodity = commodity_correlacao[commodity_selecionada]
 
-    # Chamada da função com a commodity correlacionada
-    obter_informacoes_commodity(commodity)
-else:
-    st.write("Não foi encontrada uma correspondência para a commodity selecionada.")
+        # Chamada da função com a commodity correlacionada
+        obter_informacoes_commodity(commodity)
+    else:
+        st.write("Não foi encontrada uma correspondência para a commodity selecionada.")
