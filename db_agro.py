@@ -82,7 +82,7 @@ st.title("Agroboard 🐂 🌱")
 
 # Resumo do projeto
 st.sidebar.markdown("**Projeto Agroboard**")
-st.sidebar.write("O Agroboard - o dashboard agro, tem como objetivo facilitar informações importantes aos empresários do agronegócio. Desta forma, a plataforma disponibiliza aos usuários cotações atualizadas dos principais produtos agrícolas que movimentam a economia do Brasil.")
+st.sidebar.write("O Agroboard - o dashboard agro, tem como objetivo facilitar informações importantes aos empresários do agronegócio. Sendo assim, a plataforma disponibiliza aos seus usuários as cotações atualizadas dos principais produtos agrícolas que movimentam a economia no território brasileiro.")
 
 # Dicionário de correlação entre a chave (opção selecionada) e o valor (commodity correspondente)
 commodity_correlacao = {
