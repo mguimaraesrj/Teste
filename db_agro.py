@@ -11,7 +11,6 @@ def obter_informacoes_commodity(commodity):
 
     # Obter o título
     titulo = soup.find('a', {'href': f'/cotacoes/{commodity}'}).text
-   
 
     # Obter as informações na segunda coluna (td) da segunda linha (tr)
     linha_tabela = soup.find_all('tr')[1]
@@ -42,7 +41,7 @@ def obter_informacoes_commodity(commodity):
         if tipo_resultado == 0:
             datas.append(texto)
         elif tipo_resultado == 1:
-            precos.insert(0, texto)  # Inverter a ordem dos preços, inserindo-os no início da lista
+            precos.append(texto)
 
         tipo_resultado += 1
         if tipo_resultado == 3:
@@ -50,6 +49,9 @@ def obter_informacoes_commodity(commodity):
 
         if len(datas) >= 11:
             break
+
+    # Reverter a ordem dos preços
+    precos.reverse()
 
     # Verificar se as listas têm o mesmo tamanho
     tamanho = min(len(datas), len(precos))
