@@ -11,7 +11,7 @@ def obter_informacoes_commodity(commodity):
 
     # Obter o título
     titulo = soup.find('a', {'href': f'/cotacoes/{commodity}'}).text
-    st.write("Commodity selecionada:", titulo)
+   
 
     # Obter as informações na segunda coluna (td) da segunda linha (tr)
     linha_tabela = soup.find_all('tr')[1]
