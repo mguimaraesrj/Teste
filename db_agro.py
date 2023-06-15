@@ -72,7 +72,7 @@ def obter_informacoes_commodity(commodity):
     st.text("Não deixe de ouvir este som! Acesse:" "https://www.youtube.com/watch?v=aFk363XM-N8")
 
 # Cabeçalho do aplicativo
-st.title(emoji.emojize(":cow:") + "Agroboard - o dashboard Agro" + emoji.emojize(":seedling:"))
+st.title "Agroboard - o dashboard Agro"
 
 # Dicionário de correlação entre a chave (opção selecionada) e o valor (commodity correspondente)
 commodity_correlacao = {
