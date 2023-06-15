@@ -41,7 +41,7 @@ def obter_informacoes_commodity(commodity):
         if tipo_resultado == 0:
             datas.append(texto)
         elif tipo_resultado == 1:
-            precos.append(texto)
+            precos.append(float(texto))
 
         tipo_resultado += 1
         if tipo_resultado == 3:
@@ -62,8 +62,8 @@ def obter_informacoes_commodity(commodity):
     # Criar um dataframe com as colunas "Datas" e "Preços"
     df = pd.DataFrame({"Datas": datas_formatadas, "Preços": precos[:tamanho]})
 
-    # Ordenar o dataframe por data
-    df = df.sort_values(by="Datas")
+    # Ordenar o dataframe por preço
+    df = df.sort_values(by="Preços")
 
     # Exibir o título "Histórico de Preços"
     st.subheader("Histórico de Preços")
@@ -73,7 +73,7 @@ def obter_informacoes_commodity(commodity):
     if st.button("Exibir Tabela"):
         st.write(df[["Datas", "Preços"]])
 
-    # Plotar o gráfico
+    # Plotar o gráfico ordenado por preço
     chart = st.line_chart(df.set_index("Datas"))
     chart.x_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo x
 
