@@ -63,13 +63,13 @@ def obter_informacoes_commodity(commodity):
     df = df.sort_values(by="Datas")
 
     # Exibir o dataframe
-    st.dataframe(df)
+    st.write(df)
 
     # Plotar o gráfico
-    chart = st.line_chart(df.sort_values("Preços", ascending=True).set_index("Datas"))
+    chart = st.line_chart(df.set_index("Datas"))
     chart.x_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo x
 
-    st.markdown("Não deixe de ouvir este som! Acesse: [link](https://www.youtube.com/watch?v=aFk363XM-N8)")
+    st.text("Não deixe de ouvir este som! Acesse:" "https://www.youtube.com/watch?v=aFk363XM-N8")
 
 
 # Cabeçalho do aplicativo
@@ -90,7 +90,7 @@ commodity_correlacao = {
 commodity_selecionada = st.selectbox("Selecione uma commodity", list(commodity_correlacao.keys()))
 
 # Botão para iniciar o programa
-if st.sidebar.button("Iniciar"):
+if st.button("Iniciar"):
     # Verificar se a opção selecionada tem uma correspondência
     if commodity_selecionada in commodity_correlacao:
         # Obter o valor correspondente no dicionário de correlação
