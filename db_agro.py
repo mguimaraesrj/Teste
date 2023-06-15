@@ -4,6 +4,8 @@ import pandas as pd
 import streamlit as st
 from datetime import datetime
 
+st.sidebar.set_option('deprecation.showPyplotGlobalUse', False)
+
 def obter_informacoes_commodity(commodity):
     url = f"https://www.noticiasagricolas.com.br/cotacoes/{commodity}"
     response = requests.get(url)
