@@ -16,8 +16,8 @@ def obter_informacoes_commodity(commodity):
     # Obter as informações na segunda coluna (td) da segunda linha (tr)
     linha_tabela = soup.find_all('tr')[1]
     dados_tabela = linha_tabela.find_all('td')[1].text
-    st.sidebar.markdown("**Cotação atualizada:**")
-    st.sidebar.write(dados_tabela)
+    st.sidebar.markdown("**Cotação atualizada:**", dados_tabela)
+  
 
     # Para obter o histórico de preços do produto
     link_historico = soup.find('a', {"class": "mostrar-historico"})["href"]
