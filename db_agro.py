@@ -75,13 +75,13 @@ st.title("Agroboard 🐂 🌱")
 
 # Dicionário de correlação entre a chave (opção selecionada) e o valor (commodity correspondente)
 commodity_correlacao = {
-    "Boi Gordo": "boi-gordo",
-    "Soja": "soja",
-    "Café": "cafe",
-    "Trigo": "trigo",
-    "Frango": "frango",
-    "Laranja": "laranja",
-    "Milho": "milho"
+    "Boi Gordo 🐂": "boi-gordo",
+    "Soja 🌱": "soja",
+    "Café ☕": "cafe",
+    "Trigo 🌾": "trigo",
+    "Frango 🐥": "frango",
+    "Laranja 🍊": "laranja",
+    "Milho 🌽": "milho"
 }
 
 # Selecionar a commodity desejada do usuário na barra lateral
