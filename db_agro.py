@@ -11,12 +11,12 @@ def obter_informacoes_commodity(commodity):
 
     # Obter o título
     titulo = soup.find('a', {'href': f'/cotacoes/{commodity}'}).text
-    st.write("Título:", titulo)
+    st.write("Commodity selecionada:", titulo)
 
     # Obter as informações na segunda coluna (td) da segunda linha (tr)
     linha_tabela = soup.find_all('tr')[1]
     dados_tabela = linha_tabela.find_all('td')[1].text
-    st.write("Informação:", dados_tabela)
+    st.write("Cotação atual atualizada:", dados_tabela)
 
     # Para obter o histórico de preços do produto
     link_historico = soup.find('a', {"class": "mostrar-historico"})["href"]
@@ -69,22 +69,9 @@ def obter_informacoes_commodity(commodity):
     chart = st.line_chart(df.set_index("Datas"))
     chart.x_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo x
 
-    st.text("Não deixe de ouvir este som! Acesse:" "https://www.youtube.com/watch?v=aFk363XM-N8")
-
 # Cabeçalho do aplicativo
-st.title("Agroboard - o dashboard Agro")
+st.title("Agroboard - o dashboard Agro 🐂 🌱")
 
-# Configurar a cor de fundo da barra lateral
-st.markdown(
-    """
-    <style>
-    .sidebar .sidebar-content {
-        background-color: green;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
 # Dicionário de correlação entre a chave (opção selecionada) e o valor (commodity correspondente)
 commodity_correlacao = {
