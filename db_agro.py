@@ -86,8 +86,8 @@ commodity_correlacao = {
     "Milho": "milho"
 }
 
-# Selecionar a commodity desejada do usuário
-commodity_selecionada = st.selectbox("Selecione uma commodity", list(commodity_correlacao.keys()))
+# Selecionar a commodity desejada do usuário na barra lateral
+commodity_selecionada = st.sidebar.radio("Selecione uma commodity", list(commodity_correlacao.keys()))
 
 # Botão para iniciar o programa
 if st.button("Iniciar"):
