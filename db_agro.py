@@ -18,7 +18,8 @@ def obter_informacoes_commodity(commodity):
     dados_tabela = linha_tabela.find_all('td')[1].text
 
     # Exibir a cotação atual
-    st.sidebar.write("**Cotação atual:**", dados_tabela)
+    st.sidebar.markdown("**Cotação atual:**")
+    st.sidebar.write(dados_tabela)
 
     # Para obter o histórico de preços do produto
     link_historico = soup.find('a', {"class": "mostrar-historico"})["href"]
@@ -65,7 +66,8 @@ def obter_informacoes_commodity(commodity):
 
     # Exibir o título "Histórico de Preços"
     st.subheader("Histórico de Preços")
-    st.write("Link histórico:", link_historico_completo)
+    st.write("Link histórico:")
+    st.markdown(link_historico_completo)
 
     # Exibir o dataframe com as colunas "Datas" e "Preços"
     st.write(df[["Datas", "Preços"]])
@@ -78,12 +80,15 @@ def obter_informacoes_commodity(commodity):
 # Cabeçalho do aplicativo
 st.title("Agroboard 🐂 🌱")
 
+# Resumo do projeto
+st.sidebar.markdown("**Projeto Agroboard**")
+st.sidebar.write("O Agroboard - o dashboard agro, tem como objetivo facilitar informações importantes aos empresários do agronegócio. Desta forma, a plataforma disponibiliza aos usuários cotações atualizadas dos principais produtos agrícolas que movimentam a economia do Brasil.")
+
 # Dicionário de correlação entre a chave (opção selecionada) e o valor (commodity correspondente)
 commodity_correlacao = {
     "Boi Gordo 🐂": "boi-gordo",
     "Soja 🌱": "soja",
     "Café ☕": "cafe",
-    "Trigo 🌾": "trigo",
     "Frango 🐥": "frango",
     "Laranja 🍊": "laranja",
     "Milho 🌽": "milho"
