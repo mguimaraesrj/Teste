@@ -87,7 +87,7 @@ commodity_correlacao = {
 }
 
 # Selecionar a commodity desejada do usuário na barra lateral
-commodity_selecionada = st.sidebar.selectbox("Selecione uma commodity", list(commodity_correlacao.keys()))
+commodity_selecionada = st.sidebar.selectbox("Categorias (Commodities)", list(commodity_correlacao.keys()))
 
 # Verificar se a opção selecionada tem uma correspondência
 if commodity_selecionada in commodity_correlacao:
