@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import streamlit as st
+import emoji
 from datetime import datetime
 
 def obter_informacoes_commodity(commodity):
@@ -87,7 +88,11 @@ commodity_correlacao = {
 }
 
 # Selecionar a commodity desejada do usuário
-commodity_selecionada = st.sidebar.selectbox("Selecione uma commodity", list(commodity_correlacao.keys()), format_func=lambda x: f"{x} {commodity_correlacao[x]}")
+commodity_selecionada = st.sidebar.selectbox(
+    "Selecione uma commodity",
+    list(commodity_correlacao.keys()),
+    format_func=lambda x: emoji.emojize(f"{x} :{commodity_correlacao[x]}:", use_aliases=True)
+)
 
 # Verificar se a opção selecionada tem uma correspondência
 if commodity_selecionada in commodity_correlacao:
