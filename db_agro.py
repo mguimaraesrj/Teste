@@ -66,10 +66,10 @@ def obter_informacoes_commodity(commodity):
     st.write(df)
 
     # Plotar o gráfico
-    chart = st.line_chart(df.set_index("Datas"))
+    chart = st.line_chart(df.sort_values("Preços", ascending=True).set_index("Datas"))
     chart.x_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo x
 
-    st.text("Não deixe de ouvir este som! Acesse:" "https://www.youtube.com/watch?v=aFk363XM-N8")
+    st.text("Não deixe de ouvir este som! Acesse: https://www.youtube.com/watch?v=aFk363XM-N8")
 
 
 # Cabeçalho do aplicativo
