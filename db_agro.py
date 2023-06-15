@@ -42,7 +42,7 @@ def obter_informacoes_commodity(commodity):
         if tipo_resultado == 0:
             datas.append(texto)
         elif tipo_resultado == 1:
-            precos.insert(0, texto)  # Inverter a ordem dos preços, inserindo-os no início da lista
+            precos.insert(0, float(texto))  # Inverter a ordem dos preços, inserindo-os no início da lista e convertendo para float
 
         tipo_resultado += 1
         if tipo_resultado == 3:
@@ -71,9 +71,8 @@ def obter_informacoes_commodity(commodity):
     if st.button("Exibir Tabela"):
         st.write(df[["Datas", "Preços"]])
 
-    # Plotar o gráfico
-    chart = st.line_chart(df.set_index("Datas"))
-    chart.x_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo x
+    # Plotar o gráfico de barras
+    st.bar_chart(df.set_index("Datas"))
 
 
 # Estilo do título
