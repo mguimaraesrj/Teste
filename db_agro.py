@@ -106,5 +106,5 @@ else:
 # Resumo do projeto
 st.sidebar.markdown("---")
 st.sidebar.markdown("**Projeto Agroboard**")
-st.sidebar.write("O projeto Agroboard - o dashboard agro, tem como objetivo facilitar informações importantes aos empresários do agronegócio. Desta forma, a plataforma disponibiliza aos usuários cotações atualizadas dos principais produtos agrícolas que movimentam a economia do Brasil. 🇧🇷")
+st.sidebar.write("O projeto Agroboard - o dashboard agro, tem como objetivo facilitar informações importantes aos empresários do agronegócio. Desta forma, a plataforma disponibiliza aos usuários cotações atualizadas dos principais produtos agrícolas que movimentam a economia do Brasil.")
 st.sidebar.write("O projeto foi realizado pelo aluno Matheus Guimarães, submetido como trabalho final na disciplina de Introdução à Programação.")
