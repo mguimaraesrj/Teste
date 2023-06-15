@@ -19,7 +19,7 @@ def obter_informacoes_commodity(commodity):
 
     # Exibir a cotação atual
     st.sidebar.markdown("**Cotação atual:**")
-    st.sidebar.write(dados_tabela)
+    st.sidebar.write("R$", dados_tabela)
 
     # Para obter o histórico de preços do produto
     link_historico = soup.find('a', {"class": "mostrar-historico"})["href"]
@@ -104,7 +104,6 @@ else:
     st.write("Não foi encontrada uma correspondência para a commodity selecionada.")
 
 # Resumo do projeto
-st.sidebar.markdown("---")
 st.sidebar.markdown("**Projeto Agroboard**")
-st.sidebar.write("O projeto Agroboard - o dashboard agro, tem como objetivo facilitar informações importantes aos empresários do agronegócio. Desta forma, a plataforma disponibiliza aos usuários cotações atualizadas dos principais produtos agrícolas que movimentam a economia do Brasil.")
+st.sidebar.write("O Agroboard - o dashboard agro, tem como objetivo facilitar informações importantes aos empresários do agronegócio. Sendo assim, a plataforma disponibiliza aos seus usuários as cotações atualizadas dos principais produtos agrícolas que movimentam a economia no território brasileiro.")
 st.sidebar.write("O projeto foi realizado pelo aluno Matheus Guimarães, submetido como trabalho final na disciplina de Introdução à Programação.")
