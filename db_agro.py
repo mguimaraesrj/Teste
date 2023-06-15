@@ -87,16 +87,14 @@ commodity_correlacao = {
 }
 
 # Selecionar a commodity desejada do usuário na barra lateral
-commodity_selecionada = st.sidebar.radio("Selecione uma commodity", list(commodity_correlacao.keys()))
+commodity_selecionada = st.sidebar.selectbox("Selecione uma commodity", list(commodity_correlacao.keys()))
 
-# Botão para iniciar o programa
-if st.button("Iniciar"):
-    # Verificar se a opção selecionada tem uma correspondência
-    if commodity_selecionada in commodity_correlacao:
-        # Obter o valor correspondente no dicionário de correlação
-        commodity = commodity_correlacao[commodity_selecionada]
+# Verificar se a opção selecionada tem uma correspondência
+if commodity_selecionada in commodity_correlacao:
+    # Obter o valor correspondente no dicionário de correlação
+    commodity = commodity_correlacao[commodity_selecionada]
 
-        # Chamada da função com a commodity correlacionada
-        obter_informacoes_commodity(commodity)
-    else:
-        st.write("Não foi encontrada uma correspondência para a commodity selecionada.")
+    # Chamada da função com a commodity correlacionada
+    obter_informacoes_commodity(commodity)
+else:
+    st.write("Não foi encontrada uma correspondência para a commodity selecionada.")
