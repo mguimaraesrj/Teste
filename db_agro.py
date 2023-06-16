@@ -6,31 +6,7 @@ from datetime import datetime
 import streamlit.components.v1 as components
 
 def obter_informacoes_commodity(commodity):
-    url = f"https://www.noticiasagricolas.com.br/cotacoes/{commodity}"
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
-
-    # Obter o título
-    titulo = soup.find('a', {'href': f'/cotacoes/{commodity}'}).text
-
-    # Obter as informações na segunda coluna (td) da segunda linha (tr)
-    linha_tabela = soup.find_all('tr')[1]
-    dados_tabela = linha_tabela.find_all('td')[1].text
-
-    # Exibir a cotação atual
-    st.sidebar.write("**Cotação atual:** R$", dados_tabela)
-
-    # Resto do código omitido para maior clareza
-
-def plotar_grafico(df):
-    # Configurar a faixa de valores do eixo x e y
-    x_range = [df["Datas"].min(), df["Datas"].max()]
-    y_range = [df["Preços"].min(), df["Preços"].max()]
-
-    # Plotar o gráfico
-    chart = st.line_chart(df.set_index("Datas"), use_container_width=True)
-    chart.x_range = x_range
-    chart.y_range = y_range
+    # Código existente omitido
 
 # Estilo do título
 barra_verde = """
@@ -38,6 +14,11 @@ barra_verde = """
 .barra-verde {
     background-color: #00C851;
     height: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
 }
 </style>
 """
