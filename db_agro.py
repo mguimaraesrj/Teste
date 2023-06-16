@@ -75,13 +75,13 @@ def obter_informacoes_commodity(commodity):
 
     # Plotar o gráfico
     chart = st.line_chart(df.set_index("Datas"), use_container_width=True)
-    chart.x_range = [df["Datas"].min(), df["Datas"].max()]
-    chart.y_range = [df["Preços"].min(), df["Preços"].max()]
+    chart.x_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo x
+    chart.y_range = [df["Preços"].min(), df["Preços"].max()]  # Configurar a faixa de valores do eixo y
 
     # Verificar se a commodity é "Boi Gordo" para exibir o título especial
     if commodity == "boi-gordo":
         st.title("Não é à toa que o PIB começa com P de Pecuária")
-
+        st.markdown("---")
 
 # Estilo do título
 title_html = """
@@ -90,7 +90,7 @@ title_html = """
             color: #FFFFFF;
             background-color: #00C851;
             padding: 20px;
-            font-size: 32px;
+            font-size: 24px;
             margin: 0;
         }
     </style>
