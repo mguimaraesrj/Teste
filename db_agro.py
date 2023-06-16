@@ -19,11 +19,6 @@ def obter_informacoes_commodity(commodity):
     # Exibir a cotação atual
     st.sidebar.write("**Cotação atual:** R$", dados_tabela)
 
-    # Extrair a classe <span>Fonte: Cepea/Esalq</span> abaixo da cotação atual
-    classe_fonte = soup.find('span', text='Fonte: Cepea/Esalq')
-    if classe_fonte:
-        st.sidebar.write(classe_fonte)
-
     # Para obter o histórico de preços do produto
     link_historico = soup.find('a', {"class": "mostrar-historico"})["href"]
     link_historico_completo = f"https://www.noticiasagricolas.com.br{link_historico}"
