@@ -76,9 +76,9 @@ def obter_informacoes_commodity(commodity):
     # Plotar o gráfico
     plotar_grafico(df)
 
-    # Exibir a frase após o gráfico
+    # Exibir a frase após o gráfico, se a commodity for "Boi Gordo"
     if commodity == "boi-gordo":
-        st.write("Não é à toa que o PIB começa com P de Pecuária! - Léo & Raphael")
+        st.markdown("**Não é à toa que o PIB começa com P de Pecuária! - Léo & Raphael**")
 
 
 def plotar_grafico(df):
