@@ -95,7 +95,7 @@ title_html = """
             color: #FFFFFF;
             background-color: #00C851;
             padding: 20px;
-            font-size: 32px;
+            font-size: 48px; /* Aumente o tamanho da fonte para 48px */
             margin: 0;
         }
     </style>
@@ -103,7 +103,7 @@ title_html = """
 
 # Cabeçalho do aplicativo
 st.markdown(title_html, unsafe_allow_html=True)
-st.markdown('<div class="title"><h1>Agroboard 🐂 🌱</h1></div>', unsafe_allow_html=True)
+st.markdown('<div class="title"><h1>Agroboard 🐂 🌱 - Dashboard Agro</h1></div>', unsafe_allow_html=True)
 
 # Dicionário de correlação entre a chave (opção selecionada) e o valor (commodity correspondente)
 commodity_correlacao = {
