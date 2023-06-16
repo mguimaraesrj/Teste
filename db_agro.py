@@ -76,6 +76,10 @@ def obter_informacoes_commodity(commodity):
     # Plotar o gráfico
     plotar_grafico(df)
 
+    # Exibir a frase após o gráfico
+    if commodity == "boi-gordo":
+        st.write("Não é à toa que o PIB começa com P de Pecuária! - Léo & Raphael")
+
 
 def plotar_grafico(df):
     # Configurar a faixa de valores do eixo x e y
