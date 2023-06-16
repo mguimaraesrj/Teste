@@ -62,8 +62,8 @@ def obter_informacoes_commodity(commodity):
     # Criar um dataframe com as colunas "Datas" e "Preços"
     df = pd.DataFrame({"Datas": datas_formatadas, "Preços": precos[:tamanho]})
 
-    # Ordenar o dataframe por data
-    df = df.sort_values(by="Datas")
+    # Ordenar o dataframe por Preços em ordem decrescente
+    df = df.sort_values(by="Preços", ascending=False)
 
     # Exibir o título "Histórico de Preços"
     st.subheader("Histórico de Preços")
@@ -75,8 +75,7 @@ def obter_informacoes_commodity(commodity):
 
     # Plotar o gráfico
     chart = st.line_chart(df.set_index("Datas"))
-    chart.x_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo x
-
+    chart.x_range = [df["Datas"].max(), df["Datas"].min()]  # Configurar a faixa de valores do eixo x
 
 # Estilo do título
 title_html = """
