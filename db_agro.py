@@ -74,18 +74,13 @@ def obter_informacoes_commodity(commodity):
         st.write(df[["Datas", "Preços"]])
 
     # Plotar o gráfico
-    plotar_grafico(df)
-
-
-def plotar_grafico(df):
-    # Configurar a faixa de valores do eixo x e y
-    x_range = [df["Datas"].min(), df["Datas"].max()]
-    y_range = [df["Preços"].min(), df["Preços"].max()]
-
-    # Plotar o gráfico
     chart = st.line_chart(df.set_index("Datas"), use_container_width=True)
-    chart.x_range = x_range
-    chart.y_range = y_range
+    chart.x_range = [df["Datas"].min(), df["Datas"].max()]
+    chart.y_range = [df["Preços"].min(), df["Preços"].max()]
+
+    # Verificar se a commodity é "Boi Gordo" para exibir o título especial
+    if commodity == "boi-gordo":
+        st.markdown("**Não é à toa que o PIB começa com P de Pecuária**")
 
 
 # Estilo do título
