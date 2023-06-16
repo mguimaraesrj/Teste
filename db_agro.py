@@ -80,7 +80,7 @@ def obter_informacoes_commodity(commodity):
 
     # Verificar se a commodity é "Boi Gordo" para exibir o título especial
     if commodity == "boi-gordo":
-        st.markdown("**Não é à toa que o PIB começa com P de Pecuária**")
+        st.tittle("**"Não é à toa que o PIB começa com P de Pecuária" - Léo & Raphael**")
 
 
 # Estilo do título
