@@ -109,6 +109,9 @@ title_html = """
 st.markdown(title_html, unsafe_allow_html=True)
 st.markdown('<div class="title"><h2>Agroboard - Dashboard Agro 🌱</h2></div>', unsafe_allow_html=True)
 
+# Divisão entre o título do projeto e o restante da página
+st.markdown("---")
+
 # Dicionário de correlação entre a chave (opção selecionada) e o valor (commodity correspondente)
 commodity_correlacao = {
     "Boi Gordo 🐂": "boi-gordo",
