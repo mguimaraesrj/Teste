@@ -74,9 +74,9 @@ def obter_informacoes_commodity(commodity):
         st.write(df[["Datas", "Preços"]])
 
     # Plotar o gráfico
-    chart = st.line_chart(df.set_index("Preços"))
-    chart.x_range = [df["Preços"].max(), df["Preços"].min()]  # Configurar a faixa de valores do eixo x
-    chart.y_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo y
+    chart = st.line_chart(df.set_index("Datas"))
+    chart.x_range = [df["Datas"].min(), df["Datas"].max()]  # Configurar a faixa de valores do eixo x
+    chart.y_range = [df["Preços"].max(), df["Preços"].min()]  # Configurar a faixa de valores do eixo y
 
 
 # Estilo do título
