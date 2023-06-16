@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import streamlit as st
 from datetime import datetime
-import streamlit.components.v1 as components
 
 def obter_informacoes_commodity(commodity):
     url = f"https://www.noticiasagricolas.com.br/cotacoes/{commodity}"
@@ -94,25 +93,21 @@ def plotar_grafico(df):
 
 
 # Estilo do título
-barra_verde = """
-<style>
-.barra-verde {
-    background-color: #00C851;
-    height: 10px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: -1;
-}
-</style>
+title_html = """
+    <style>
+        .title h1 {
+            color: #FFFFFF;
+            background-color: #00C851;
+            padding: 20px;
+            font-size: 48px; /* Aumente o tamanho da fonte para 48px */
+            margin: 0;
+        }
+    </style>
 """
 
 # Cabeçalho do aplicativo
-components.html(barra_verde)
-st.markdown('<div class="title"><h2 class="barra-verde">Agroboard - Dashboard Agro 🌱</h2></div>', unsafe_allow_html=True)
-
-# Restante do código existente
+st.markdown(title_html, unsafe_allow_html=True)
+st.markdown('<div class="title"><h2>Agroboard - Dashboard Agro 🌱</h2></div>', unsafe_allow_html=True)
 
 # Dicionário de correlação entre a chave (opção selecionada) e o valor (commodity correspondente)
 commodity_correlacao = {
