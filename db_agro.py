@@ -51,9 +51,6 @@ def obter_informacoes_commodity(commodity):
         if len(datas) >= 11:
             break
 
-    # Reverter a ordem dos preços
-    precos.reverse()
-
     # Verificar se as listas têm o mesmo tamanho
     tamanho = min(len(datas), len(precos))
 
@@ -78,11 +75,6 @@ def obter_informacoes_commodity(commodity):
     plotar_grafico(df)
 
 
-import altair as alt
-
-import altair as alt
-
-
 def plotar_grafico(df):
     # Ordenar o dataframe por data
     df = df.sort_values(by="Datas")
@@ -101,11 +93,6 @@ def plotar_grafico(df):
 
     # Exibir o gráfico no Streamlit
     st.altair_chart(chart, use_container_width=True)
-
-
-
-
-
 
 
 # Estilo do título
