@@ -78,6 +78,8 @@ def obter_informacoes_commodity(commodity):
     plotar_grafico(df)
 
 
+import altair as alt
+
 def plotar_grafico(df):
     # Ordenar o dataframe por data
     df = df.sort_values(by="Datas")
@@ -85,11 +87,14 @@ def plotar_grafico(df):
     # Plotar o gráfico utilizando a biblioteca Altair
     chart = alt.Chart(df).mark_line().encode(
         x='Datas',
-        y='Preços'
+        y=alt.Y('Preços', sort=alt.EncodingSortField(field='Preços', order='ascending'))
     ).properties(
         width=600,
         height=400
     )
+
+    # Adicionar pontos para cada ponto de dados
+    chart += chart.mark_circle()
 
     # Exibir o gráfico no Streamlit
     st.altair_chart(chart, use_container_width=True)
