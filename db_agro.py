@@ -87,7 +87,7 @@ def plotar_grafico(df):
     y_range = [df["Preços"].min(), df["Preços"].max()]
 
     # Plotar o gráfico
-    chart = st.altair_chart(df.set_index("Datas"), use_container_width=True)
+    chart = st.line_chart(df.set_index("Datas"), use_container_width=True)
     chart.x_range = x_range
     chart.y_range = y_range
 
