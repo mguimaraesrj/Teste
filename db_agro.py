@@ -82,25 +82,19 @@ import altair as alt
 
 import altair as alt
 
+
 def plotar_grafico(df):
     # Ordenar o dataframe por data
     df = df.sort_values(by="Datas")
 
-    # Obter o menor e o maior preço para definir os limites do gráfico
-    menor_preco = df['Preços'].min()
-    maior_preco = df['Preços'].max()
-
     # Plotar o gráfico utilizando a biblioteca Altair
-    chart = alt.Chart(df).mark_line().encode(
+    chart = alt.Chart(df).mark_bar().encode(
         x='Datas',
-        y=alt.Y('Preços', scale=alt.Scale(domain=[menor_preco, maior_preco]))
+        y='Preços'
     ).properties(
         width=600,
         height=400
     )
-
-    # Adicionar pontos para cada ponto de dados
-    chart += chart.mark_circle()
 
     # Exibir o gráfico no Streamlit
     st.altair_chart(chart, use_container_width=True)
