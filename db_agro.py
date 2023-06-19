@@ -88,9 +88,6 @@ def plotar_grafico(df):
         height=400
     )
 
-    # Adicionar pontos para cada ponto de dados
-    chart += chart.mark_circle()
-
     # Exibir o gráfico no Streamlit
     st.altair_chart(chart, use_container_width=True)
 
