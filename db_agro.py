@@ -106,16 +106,24 @@ def plotar_grafico(df):
 
 # Estilo do título
 title_html = """
-    <style>
-        .title h1 {
-            color: #FFFFFF;
-            background-color: #00C851;
-            padding: 20px;
-            font-size: 48px; /* Aumente o tamanho da fonte para 48px */
-            margin: 0;
-        }
-    </style>
+<style>
+    .title h1 {
+        color: #FFFFFF;
+        background-color: #00C851;
+        padding: 20px;
+        font-size: 48px; /* Aumente o tamanho da fonte para 48px */
+        margin: 0;
+    }
+</style>
 """
+Certifique-se de que esse trecho corrigido seja inserido corretamente no seu arquivo db_agro.py. Verifique se a indentação está correta e se não há outros erros de sintaxe no restante do seu código.
+
+
+
+
+
+
+
 
 # Cabeçalho do aplicativo
 st.markdown(title_html, unsafe_allow_html=True)
