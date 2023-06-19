@@ -40,9 +40,9 @@ def obter_informacoes_commodity(commodity):
         texto = resultado.text.strip()
 
         if tipo_resultado == 0:
-            datas.append(datetime.strptime(texto, "%d/%m/%Y"))
+            datas.append(texto)
         elif tipo_resultado == 1:
-            precos.append(float(texto.replace(",", ".")))
+            precos.append(texto)
 
         tipo_resultado += 1
         if tipo_resultado == 3:
@@ -54,17 +54,20 @@ def obter_informacoes_commodity(commodity):
     # Verificar se as listas têm o mesmo tamanho
     tamanho = min(len(datas), len(precos))
 
-    # Criar um DataFrame com as colunas "Datas" e "Preços"
-    df = pd.DataFrame({"Datas": datas[:tamanho], "Preços": precos[:tamanho]})
+    # Converter as datas para o formato correto
+    datas_formatadas = [datetime.strptime(data, "%d/%m/%Y").strftime("%d/%m/%Y") for data in datas[:tamanho]]
 
-    # Ordenar o DataFrame por data
+    # Criar um dataframe com as colunas "Datas" e "Preços"
+    df = pd.DataFrame({"Datas": datas_formatadas, "Preços": precos[:tamanho]})
+
+    # Ordenar o dataframe por data
     df = df.sort_values(by="Datas")
 
     # Exibir o título "Histórico de Preços"
     st.subheader("Histórico de Preços")
     st.markdown(link_historico_completo)
 
-    # Exibir o DataFrame com as colunas "Datas" e "Preços" apenas se o botão "Exibir Tabela" for clicado
+    # Exibir o dataframe com as colunas "Datas" e "Preços" apenas se o botão "Exibir Tabela" for clicado
     if st.button("Exibir Tabela"):
         st.write(df[["Datas", "Preços"]])
 
@@ -73,10 +76,13 @@ def obter_informacoes_commodity(commodity):
 
 
 def plotar_grafico(df):
+    # Ordenar o dataframe por data
+    df = df.sort_values(by="Datas")
+
     # Plotar o gráfico utilizando a biblioteca Altair
     chart = alt.Chart(df).mark_line().encode(
-        x='Datas:T',  # Utiliza o tipo "Temporal" para as datas
-        y=alt.Y('Preços:Q', sort=alt.EncodingSortField(field='Preços', order='ascending'))
+        x='Datas',
+        y=alt.Y('Preços', sort=alt.EncodingSortField(field='Preços', order='ascending'))
     ).properties(
         width=600,
         height=400
