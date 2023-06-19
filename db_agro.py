@@ -80,14 +80,20 @@ def obter_informacoes_commodity(commodity):
 
 import altair as alt
 
+import altair as alt
+
 def plotar_grafico(df):
     # Ordenar o dataframe por data
     df = df.sort_values(by="Datas")
 
+    # Obter o menor e o maior preço para definir os limites do gráfico
+    menor_preco = df['Preços'].min()
+    maior_preco = df['Preços'].max()
+
     # Plotar o gráfico utilizando a biblioteca Altair
     chart = alt.Chart(df).mark_line().encode(
         x='Datas',
-        y=alt.Y('Preços', sort=alt.EncodingSortField(field='Preços', order='ascending'))
+        y=alt.Y('Preços', scale=alt.Scale(domain=[menor_preco, maior_preco]))
     ).properties(
         width=600,
         height=400
@@ -98,6 +104,7 @@ def plotar_grafico(df):
 
     # Exibir o gráfico no Streamlit
     st.altair_chart(chart, use_container_width=True)
+
 
 
 
