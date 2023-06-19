@@ -79,16 +79,13 @@ def obter_informacoes_commodity(commodity):
 
 
 def plotar_grafico(df):
-    # Ordenar o dataframe por data
-    df = df.sort_values(by="Datas")
-
-    # Converter os valores da coluna "Preços" para o tipo numérico
-    df["Preços"] = pd.to_numeric(df["Preços"])
+    # Ordenar o dataframe pelo valor numérico da coluna "Preços"
+    df = df.sort_values(by="Preços", key=lambda x: pd.to_numeric(x))
 
     # Plotar o gráfico utilizando a biblioteca Altair
     chart = alt.Chart(df).mark_line().encode(
         x='Datas',
-        y=alt.Y('Preços', sort='ascending')
+        y='Preços'
     ).properties(
         width=600,
         height=400
@@ -99,14 +96,6 @@ def plotar_grafico(df):
 
     # Exibir o gráfico no Streamlit
     st.altair_chart(chart, use_container_width=True)
-
-
-
-
-
-
-
-
 
 # Estilo do título
 title_html = """
