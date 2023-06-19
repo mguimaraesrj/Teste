@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import streamlit as st
 from datetime import datetime
+import altair as alt
 
 def obter_informacoes_commodity(commodity):
     url = f"https://www.noticiasagricolas.com.br/cotacoes/{commodity}"
@@ -76,20 +77,19 @@ def obter_informacoes_commodity(commodity):
     # Plotar o gráfico
     plotar_grafico(df)
 
-    # Exibir a frase após o gráfico, se a commodity for "Boi Gordo"
-    if commodity == "boi-gordo":
-        st.markdown("**Não é à toa que o PIB começa com P de Pecuária! - Léo & Raphael**")
-
 
 def plotar_grafico(df):
-    # Configurar a faixa de valores do eixo x e y
-    x_range = [df["Datas"].min(), df["Datas"].max()]
-    y_range = [df["Preços"].min(), df["Preços"].max()]
+    # Plotar o gráfico utilizando a biblioteca Altair
+    chart = alt.Chart(df).mark_line().encode(
+        x='Datas',
+        y='Preços'
+    ).properties(
+        width=600,
+        height=400
+    )
 
-    # Plotar o gráfico
-    chart = st.line_chart(df.set_index("Datas"), use_container_width=True)
-    chart.x_range = x_range
-    chart.y_range = y_range
+    # Exibir o gráfico no Streamlit
+    st.altair_chart(chart, use_container_width=True)
 
 
 # Estilo do título
