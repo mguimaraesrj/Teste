@@ -78,11 +78,6 @@ def obter_informacoes_commodity(commodity):
     plotar_grafico(df)
 
 
-import altair as alt
-
-import altair as alt
-
-
 def plotar_grafico(df):
     # Ordenar o dataframe por data
     df = df.sort_values(by="Datas")
@@ -101,6 +96,7 @@ def plotar_grafico(df):
 
     # Exibir o gráfico no Streamlit
     st.altair_chart(chart, use_container_width=True)
+
 
 
 
