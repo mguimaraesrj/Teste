@@ -85,7 +85,7 @@ def plotar_grafico(df):
     # Plotar o gráfico utilizando a biblioteca Altair
     chart = alt.Chart(df).mark_line().encode(
         x='Datas',
-        y=alt.Y('Preços', sort='ascending')
+        y='Preços'
     ).properties(
         width=600,
         height=400
@@ -93,6 +93,7 @@ def plotar_grafico(df):
 
     # Exibir o gráfico no Streamlit
     st.altair_chart(chart, use_container_width=True)
+
 
 
 
