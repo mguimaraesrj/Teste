@@ -88,13 +88,16 @@ def plotar_grafico(df):
     df = df.sort_values(by="Datas")
 
     # Plotar o gráfico utilizando a biblioteca Altair
-    chart = alt.Chart(df).mark_bar().encode(
+    chart = alt.Chart(df).mark_line().encode(
         x='Datas',
-        y='Preços'
+        y=alt.Y('Preços', sort=alt.EncodingSortField(field='Preços', order='ascending'))
     ).properties(
         width=600,
         height=400
     )
+
+    # Adicionar pontos para cada ponto de dados
+    chart += chart.mark_circle()
 
     # Exibir o gráfico no Streamlit
     st.altair_chart(chart, use_container_width=True)
