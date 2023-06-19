@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import streamlit as st
-import altair as alt
 from datetime import datetime
 
 def obter_informacoes_commodity(commodity):
@@ -87,17 +86,10 @@ def plotar_grafico(df):
     x_range = [df["Datas"].min(), df["Datas"].max()]
     y_range = [df["Preços"].min(), df["Preços"].max()]
 
-    # Plotar o gráfico usando Altair
-    chart = alt.Chart(df).mark_line().encode(
-        x='Datas',
-        y='Preços'
-    ).properties(
-        width=600,
-        height=300
-    ).interactive()
-
-    # Exibir o gráfico usando Streamlit
-    st.altair_chart(chart, use_container_width=True)
+    # Plotar o gráfico
+    chart = st.line_chart(df.set_index("Datas"), use_container_width=True)
+    chart.x_range = x_range
+    chart.y_range = y_range
 
 
 # Estilo do título
@@ -117,4 +109,34 @@ title_html = """
 st.markdown(title_html, unsafe_allow_html=True)
 st.markdown('<div class="title"><h2>Agroboard - Dashboard Agro 🌱</h2></div>', unsafe_allow_html=True)
 
-# Restante do código...
+# Divisão entre o título do projeto e o restante da página
+st.markdown("---")
+
+# Dicionário de correlação entre a chave (opção selecionada) e o valor (commodity correspondente)
+commodity_correlacao = {
+    "Boi Gordo 🐂": "boi-gordo",
+    "Soja 🌱": "soja",
+    "Café ☕": "cafe",
+    "Frango 🐥": "frango",
+    "Laranja 🍊": "laranja",
+    "Milho 🌽": "milho"
+}
+
+# Selecionar a commodity desejada do usuário na barra lateral
+commodity_selecionada = st.sidebar.selectbox("Categorias (Commodities)", list(commodity_correlacao.keys()))
+
+# Verificar se a opção selecionada tem uma correspondência
+if commodity_selecionada in commodity_correlacao:
+    # Obter o valor correspondente no dicionário de correlação
+    commodity = commodity_correlacao[commodity_selecionada]
+
+    # Chamada da função com a commodity correlacionada
+    obter_informacoes_commodity(commodity)
+else:
+    st.write("Não foi encontrada uma correspondência para a commodity selecionada.")
+
+# Resumo do projeto
+st.sidebar.markdown("---")
+st.sidebar.markdown("**Projeto Agroboard**")
+st.sidebar.write("O Agroboard - o dashboard agro, tem como objetivo facilitar informações importantes aos empresários do agronegócio. Sendo assim, a plataforma disponibiliza aos seus usuários as cotações atualizadas dos principais produtos agrícolas que movimentam a economia no território brasileiro. Desta forma, facilitamos o processo de comunicação entre os órgãos reguladores e os demais membros da comunidade agrícola. As informações são extraídas do site Notícias Agrícolas.")
+st.sidebar.write("O projeto foi realizado pelo aluno Matheus Guimarães, submetido como trabalho final na disciplina de Introdução à Programação, sob a orienntação do Prof. Josir Gomes.")
