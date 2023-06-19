@@ -82,10 +82,13 @@ def plotar_grafico(df):
     # Ordenar o dataframe por data
     df = df.sort_values(by="Datas")
 
+    # Converter os valores da coluna "Preços" para o tipo numérico
+    df["Preços"] = pd.to_numeric(df["Preços"])
+
     # Plotar o gráfico utilizando a biblioteca Altair
     chart = alt.Chart(df).mark_line().encode(
         x='Datas',
-        y=alt.Y('Preços', sort=alt.EncodingSortField(field='Preços', order='ascending'))
+        y=alt.Y('Preços', sort='ascending')
     ).properties(
         width=600,
         height=400
@@ -96,6 +99,7 @@ def plotar_grafico(df):
 
     # Exibir o gráfico no Streamlit
     st.altair_chart(chart, use_container_width=True)
+
 
 
 
