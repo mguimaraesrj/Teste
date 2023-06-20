@@ -43,10 +43,7 @@ def obter_informacoes_commodity(commodity):
         if tipo_resultado == 0:
             datas.append(texto)
         elif tipo_resultado == 1:
-            if commodity == "cafe" and float(texto.replace(".", "").replace(",", ".")) > 1000:
-                precos.append(float(texto.replace(".", "").replace(",", ".")) / 1000)  # Dividir por 1000 para preços acima de 1000 no café
-            else:
-                precos.append(float(texto.replace(".", "").replace(",", ".")))
+            precos.append(texto)
 
         tipo_resultado += 1
         if tipo_resultado == 3:
@@ -64,8 +61,8 @@ def obter_informacoes_commodity(commodity):
     # Criar um dataframe com as colunas "Datas" e "Preços"
     df = pd.DataFrame({"Datas": datas_formatadas, "Preços": precos[:tamanho]})
 
-    # Ordenar o dataframe por data e preço
-    df = df.sort_values(by=["Datas", "Preços"])
+    # Ordenar o dataframe por data
+    df = df.sort_values(by="Datas")
 
     # Exibir o título "Histórico de Preços"
     st.subheader("Histórico de Preços")
@@ -75,15 +72,27 @@ def obter_informacoes_commodity(commodity):
     if st.button("Exibir Tabela"):
         st.write(df[["Datas", "Preços"]])
 
+    # Adicionar a opção de ordenação na barra lateral
+    order = st.sidebar.radio("Ordenar Preços", ("Ascendente", "Descendente"))
+
+    # Verificar a opção selecionada e definir a ordem correspondente
+    if order == "Ascendente":
+        order = "ascending"
+    else:
+        order = "descending"
+
     # Plotar o gráfico
-    plotar_grafico(df)
+    plotar_grafico(df, order)
 
 
-def plotar_grafico(df):
+def plotar_grafico(df, order):
+    # Ordenar o dataframe por data
+    df = df.sort_values(by="Datas")
+
     # Plotar o gráfico utilizando a biblioteca Altair
     chart = alt.Chart(df).mark_line().encode(
         x='Datas',
-        y='Preços'
+        y=alt.Y('Preços', sort=alt.EncodingSortField(field='Preços', order=order))
     ).properties(
         width=600,
         height=400
