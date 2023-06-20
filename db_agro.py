@@ -43,10 +43,10 @@ def obter_informacoes_commodity(commodity):
         if tipo_resultado == 0:
             datas.append(texto)
         elif tipo_resultado == 1:
-            if commodity == "cafe" and float(texto) > 1000:
-                precos.append(float(texto) / 1000)  # Dividir por 1000 para preços acima de 1000 no café
+            if commodity == "cafe" and float(texto.replace(".", "").replace(",", ".")) > 1000:
+                precos.append(float(texto.replace(".", "").replace(",", ".")) / 1000)  # Dividir por 1000 para preços acima de 1000 no café
             else:
-                precos.append(float(texto))
+                precos.append(float(texto.replace(".", "").replace(",", ".")))
 
         tipo_resultado += 1
         if tipo_resultado == 3:
