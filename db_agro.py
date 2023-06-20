@@ -104,20 +104,6 @@ def plotar_grafico(df):
     st.altair_chart(chart, use_container_width=True
 
 
-# Estilo do título
-title_html = """
-<style>
-    .title h1 {
-        color: #FFFFFF;
-        background-color: #00C851;
-        padding: 20px;
-        font-size: 48px; /* Aumente o tamanho da fonte para 48px */
-        margin: 0;
-    }
-</style>
-"""
-
-
 # Cabeçalho do aplicativo
 st.markdown(title_html, unsafe_allow_html=True)
 st.markdown('<div class="title"><h2>Agroboard - Dashboard Agro 🌱</h2></div>', unsafe_allow_html=True)
