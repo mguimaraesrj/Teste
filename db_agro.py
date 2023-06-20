@@ -106,16 +106,11 @@ title_html = """
             font-size: 48px; /* Aumente o tamanho da fonte para 48px */
             margin: 0;
         }
-
-        body {
-            background-image: url('URL_DA_IMAGEM');
-            background-size: cover;
-        }
     </style>
 """
 
 # Cabeçalho do aplicativo
-st.markdown(title_html.replace('URL_DA_IMAGEM', 'https://www.myfarm.com.br/wp-content/uploads/2020/02/452602.jpg'), unsafe_allow_html=True)
+st.markdown(title_html, unsafe_allow_html=True)
 st.markdown('<div class="title"><h2>Agroboard - Dashboard Agro 🌱</h2></div>', unsafe_allow_html=True)
 
 # Divisão entre o título do projeto e o restante da página
