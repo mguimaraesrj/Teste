@@ -61,9 +61,6 @@ def obter_informacoes_commodity(commodity):
     # Criar um dataframe com as colunas "Datas" e "Preços"
     df = pd.DataFrame({"Datas": datas_formatadas, "Preços": precos[:tamanho]})
 
-    # Ordenar o dataframe por data
-    df = df.sort_values(by="Datas")
-
     # Exibir o título "Histórico de Preços"
     st.subheader("Histórico de Preços")
     st.markdown(link_historico_completo)
@@ -72,27 +69,18 @@ def obter_informacoes_commodity(commodity):
     if st.button("Exibir Tabela"):
         st.write(df[["Datas", "Preços"]])
 
-    # Adicionar a opção de ordenação na barra lateral
-    order = st.sidebar.radio("Ordenar Preços", ("Ascendente", "Descendente"))
-
-    # Verificar a opção selecionada e definir a ordem correspondente
-    if order == "Ascendente":
-        order = "ascending"
-    else:
-        order = "descending"
-
     # Plotar o gráfico
-    plotar_grafico(df, order)
+    plotar_grafico(df)
 
 
-def plotar_grafico(df, order):
-    # Ordenar o dataframe por data
-    df = df.sort_values(by="Datas")
+def plotar_grafico(df):
+    # Ordenar o dataframe por data em ordem descendente
+    df = df.sort_values(by="Datas", ascending=False)
 
     # Plotar o gráfico utilizando a biblioteca Altair
     chart = alt.Chart(df).mark_line().encode(
         x='Datas',
-        y=alt.Y('Preços', sort=alt.EncodingSortField(field='Preços', order=order))
+        y='Preços'
     ).properties(
         width=600,
         height=400
