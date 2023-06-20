@@ -116,13 +116,6 @@ title_html = """
     }
 </style>
 """
-Certifique-se de que esse trecho corrigido seja inserido corretamente no seu arquivo db_agro.py. Verifique se a indentação está correta e se não há outros erros de sintaxe no restante do seu código.
-
-
-
-
-
-
 
 
 # Cabeçalho do aplicativo
