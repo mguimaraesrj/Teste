@@ -69,18 +69,24 @@ def obter_informacoes_commodity(commodity):
     if st.button("Exibir Tabela"):
         st.write(df[["Datas", "Preços"]])
 
+    # Adicionar a opção de ordenação na barra lateral
+    order = st.sidebar.radio("Ordenar Preços", ("Ascendente", "Descendente"))
+
+    # Verificar a opção selecionada e definir a ordem correspondente
+    if order == "Ascendente":
+        order = "ascending"
+    else:
+        order = "descending"
+
     # Plotar o gráfico
-    plotar_grafico(df)
+    plotar_grafico(df, order)
 
 
-def plotar_grafico(df):
-    # Ordenar o dataframe por data em ordem descendente
-    df = df.sort_values(by="Datas", ascending=False)
-
+def plotar_grafico(df, order):
     # Plotar o gráfico utilizando a biblioteca Altair
     chart = alt.Chart(df).mark_line().encode(
         x='Datas',
-        y='Preços'
+        y=alt.Y('Preços', sort=alt.EncodingSortField(field='Preços', order=order))
     ).properties(
         width=600,
         height=400
