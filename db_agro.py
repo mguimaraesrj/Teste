@@ -43,7 +43,10 @@ def obter_informacoes_commodity(commodity):
         if tipo_resultado == 0:
             datas.append(texto)
         elif tipo_resultado == 1:
-            precos.append(float(texto.replace(",", ".")))  # Converter para float
+            if commodity == "cafe" and float(texto) > 1000:
+                precos.append(float(texto) / 1000)  # Dividir por 1000 para preços acima de 1000 no café
+            else:
+                precos.append(float(texto))
 
         tipo_resultado += 1
         if tipo_resultado == 3:
@@ -72,18 +75,11 @@ def obter_informacoes_commodity(commodity):
     if st.button("Exibir Tabela"):
         st.write(df[["Datas", "Preços"]])
 
-    # Adicionar a opção de ordenação na barra lateral
-    order = st.sidebar.selectbox("Ordenar por", ["Ascendente", "Descendente"])
-    plotar_grafico(df, order)
+    # Plotar o gráfico
+    plotar_grafico(df)
 
 
-def plotar_grafico(df, order):
-    # Ordenar o dataframe por data e preço
-    if order == "Ascendente":
-        df = df.sort_values(by=["Datas", "Preços"])
-    else:
-        df = df.sort_values(by=["Datas", "Preços"], ascending=[True, False])
-
+def plotar_grafico(df):
     # Plotar o gráfico utilizando a biblioteca Altair
     chart = alt.Chart(df).mark_line().encode(
         x='Datas',
