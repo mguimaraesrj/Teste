@@ -79,30 +79,31 @@ def plotar_grafico(df):
     # Ordenar o dataframe por data
     df = df.sort_values(by="Datas")
 
-    # Obter opções de ordenação
-    ordenacao_opcoes = ['Ascending', 'Descending']
-
-    # Permitir que o usuário escolha a ordem de classificação
-    ordenacao = st.selectbox('Ordenação dos preços:', ordenacao_opcoes)
-
-    # Definir a ordem com base na escolha do usuário
-    if ordenacao == 'Ascending':
-        sort_order = 'ascending'
-    else:
-        sort_order = 'descending'
-
     # Plotar o gráfico utilizando a biblioteca Altair
     chart = alt.Chart(df).mark_line().encode(
         x='Datas',
-        y=alt.Y('Preços', sort=alt.EncodingSortField(field='Preços', order=sort_order))
+        y=alt.Y('Preços', sort=alt.EncodingSortField(field='Preços', order='ascending'))
     ).properties(
         width=600,
         height=400
     )
 
     # Exibir o gráfico no Streamlit
-    st.altair_chart(chart, use_container_width=True
+    st.altair_chart(chart, use_container_width=True)
 
+
+# Estilo do título
+title_html = """
+    <style>
+        .title h1 {
+            color: #FFFFFF;
+            background-color: #00C851;
+            padding: 20px;
+            font-size: 48px; /* Aumente o tamanho da fonte para 48px */
+            margin: 0;
+        }
+    </style>
+"""
 
 # Cabeçalho do aplicativo
 st.markdown(title_html, unsafe_allow_html=True)
