@@ -72,19 +72,22 @@ def obter_informacoes_commodity(commodity):
     if st.button("Exibir Tabela"):
         st.write(df[["Datas", "Preços"]])
 
+    # Adicionar a opção de ordenação na barra lateral
+    order = st.sidebar.radio("Ordenar Preços", ("Ascendente", "Descendente"))
+
+    # Verificar a opção selecionada e definir a ordem correspondente
+    if order == "Ascendente":
+        order = "ascending"
+    else:
+        order = "descending"
+
     # Plotar o gráfico
-    plotar_grafico(df)
+    plotar_grafico(df, order)
 
 
 def plotar_grafico(df, order):
     # Ordenar o dataframe por data
     df = df.sort_values(by="Datas")
-
-    # Ordenar o dataframe por preços, de forma ascendente ou descendente
-    if order == "ascending":
-        df = df.sort_values(by="Preços")
-    else:
-        df = df.sort_values(by="Preços", ascending=False)
 
     # Plotar o gráfico utilizando a biblioteca Altair
     chart = alt.Chart(df).mark_line().encode(
@@ -131,15 +134,6 @@ commodity_correlacao = {
 
 # Selecionar a commodity desejada do usuário na barra lateral
 commodity_selecionada = st.sidebar.selectbox("Categorias (Commodities)", list(commodity_correlacao.keys()))
-
-# Adicionar a opção de ordenação na barra lateral
-order = st.sidebar.radio("Ordenar Preços", ("Ascendente", "Descendente"))
-
-# Verificar a opção selecionada e definir a ordem correspondente
-if order == "Ascendente":
-    order = "ascending"
-else:
-    order = "descending"
 
 # Verificar se a opção selecionada tem uma correspondência
 if commodity_selecionada in commodity_correlacao:
